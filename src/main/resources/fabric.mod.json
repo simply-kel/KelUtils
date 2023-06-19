@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "kelutils",
+  "version": "${version}",
+  "name": "KelUtils",
+  "description": "Utilities for different tasks",
+  "authors": [
+    "Im_Kel"
+  ],
+  "contact": {
+    "repo": "https://github.com/simply-kel/KelUtils"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/kelutils/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ru.simplykel.kelutils.Main"
+    ],
+    "modmenu": [
+      "ru.simplykel.kelutils.config.gui.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "KelUtils.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

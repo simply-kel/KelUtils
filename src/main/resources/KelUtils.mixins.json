@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ru.simplykel.kelutils.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MinecraftClientAccess"
+  ],
+  "client": [
+    "MixinSimpleOption"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

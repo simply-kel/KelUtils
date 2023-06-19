@@ -1,0 +1,77 @@
+{
+  "kelutils.name": "KelUtils",
+  "kelutils.key.gamma.uo": "Gamma: +10",
+  "kelutils.key.gamma.down": "Gamma: -10",
+  "kelutils.key.gamma.toggle": "Toggle Gamma",
+
+
+  "kelutils.config.client": "Client",
+
+  "kelutils.config.title.functions": "Functions",
+  "kelutils.config.client.enable_hud_information": "Enable HUD Information",
+
+  "kelutils.config.title.gamma": "Gamma",
+  "kelutils.config.client.normal_gamma_volume": "Normal Gamma Volume",
+  "kelutils.config.client.current_gamma_volume": "Current Gamma Volume",
+  "kelutils.config.client.select_gamma_volume": "Selected Gamma Volume",
+
+
+  "kelutils.config.server": "Current Server",
+  "kelutils.config.server.show_address": "Show address",
+  "kelutils.config.server.show_name_in_list": "Show name in list",
+  "kelutils.config.server.show_custom_name": "Show custom name",
+  "kelutils.config.server.custom_name": "Custom name",
+  "kelutils.config.server.show_icon": "Show icon",
+  "kelutils.config.server.icon_url": "Icon URL",
+
+
+  "kelutils.config.localization": "Localizations",
+  "kelutils.config.localization.title.information": "Information",
+  "kelutils.config.localization.hud": "HUD Information",
+
+  "kelutils.config.localization.title.item": "Item",
+  "kelutils.config.localization.item": "Item",
+  "kelutils.config.localization.item.format": "Item format",
+  "kelutils.config.localization.item.format.count": "Item count",
+
+  "kelutils.config.localization.title.server": "Server",
+  "kelutils.config.localization.address.hidden": "Address hide",
+  "kelutils.config.localization.address": "Address",
+
+  "kelutils.config.localization.title.date": "Date",
+  "kelutils.config.localization.date.format": "Date format",
+  "kelutils.config.localization.date": "Date",
+  "kelutils.config.localization.date.time": "Time",
+
+  "kelutils.config.localization.title.time": "Time",
+  "kelutils.config.localization.time.morning": "Morning",
+  "kelutils.config.localization.time.day": "Day",
+  "kelutils.config.localization.time.evening": "Evening",
+  "kelutils.config.localization.time.night": "Night",
+
+  "kelutils.config.localization.title.world": "Worlds",
+  "kelutils.config.localization.world.moon": "The Moon",
+  "kelutils.config.localization.world.the_end": "The End?",
+  "kelutils.config.localization.world.nether": "The Nether",
+  "kelutils.config.localization.world.overworld": "The Overworld",
+  "kelutils.config.localization.world.unknown": "What?",
+
+  "kelutils.hud": "%name% • %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 %item%",
+  "kelutils.item": "%item%",
+  "kelutils.item.format": "• %item_name% %item_pcs%",
+  "kelutils.item.format.count": "%item_count% pcs.",
+  "kelutils.address.hidden": "Coffee?",
+  "kelutils.address": "%address%",
+  "kelutils.date.format": "%date_format%, %time_format%",
+  "kelutils.date": "MM/dd/yy",
+  "kelutils.date.time": "hh:mm",
+  "kelutils.time.morning": "Morning",
+  "kelutils.time.day": "Day",
+  "kelutils.time.evening": "Evening",
+  "kelutils.time.night": "Night",
+  "kelutils.world.moon": "The Moon",
+  "kelutils.world.the_end": "The End?",
+  "kelutils.world.nether": "The Nether",
+  "kelutils.world.overworld": "The Overworld",
+  "kelutils.world.unknown": "What?"
+}

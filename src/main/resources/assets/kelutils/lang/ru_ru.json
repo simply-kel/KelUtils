@@ -1,0 +1,120 @@
+{
+  "kelutils.name": "KelUtils",
+  "kelutils.key.openconfig": "Открыть конфиги",
+  "kelutils.key.gamma.uo": "Гамма: +10",
+  "kelutils.key.gamma.down": "Гамма: -10",
+  "kelutils.key.gamma.toggle": "Переключить гамму",
+
+  "kelutils.message.clothConfigNotFound": "§7KelUtils§r » Установите мод §7Cloth Config§r для показа окна конфигурации. =-=",
+
+  "kelutils.config.client": "Клиент",
+
+  "kelutils.config.title.functions": "Функции",
+  "kelutils.config.client.enable_hud_information": "Включить HUD Информацию",
+
+  "kelutils.config.title.gamma": "Гамма",
+  "kelutils.config.client.normal_gamma_volume": "Нормальное значение гаммы",
+  "kelutils.config.client.current_gamma_volume": "Текущее значение гаммы",
+  "kelutils.config.client.select_gamma_volume": "Выбранное значение гаммы",
+
+
+  "kelutils.config.server": "Текущий сервер",
+  "kelutils.config.server.show_address": "Показать адрес",
+  "kelutils.config.server.show_name_in_list": "Показывать название из списка",
+  "kelutils.config.server.show_custom_name": "Показать кастом. название",
+  "kelutils.config.server.custom_name": "Кастом. название",
+
+
+  "kelutils.config.localization": "Локализация",
+  "kelutils.config.localization.title.information": "Информация",
+  "kelutils.config.localization.hud": "HUD Информация",
+
+  "kelutils.config.localization.title.item": "Предмет",
+  "kelutils.config.localization.item": "Предмет",
+  "kelutils.config.localization.item.format": "Формат предмета",
+  "kelutils.config.localization.item.format.count": "Кол-во предметов",
+
+  "kelutils.config.localization.title.server": "Сервер",
+  "kelutils.config.localization.address.hidden": "Адрес скрыт",
+  "kelutils.config.localization.address": "Адрес",
+
+  "kelutils.config.localization.title.date": "Дата",
+  "kelutils.config.localization.date.format": "Формат даты",
+  "kelutils.config.localization.date": "Дата",
+  "kelutils.config.localization.date.time": "Время",
+
+  "kelutils.config.localization.title.time": "Время игры",
+  "kelutils.config.localization.time.morning": "Утро",
+  "kelutils.config.localization.time.day": "День",
+  "kelutils.config.localization.time.evening": "Вечер",
+  "kelutils.config.localization.time.night": "Ночь",
+
+  "kelutils.config.localization.title.world": "Миры",
+  "kelutils.config.localization.world.moon": "Луна",
+  "kelutils.config.localization.world.the_end": "The End?",
+  "kelutils.config.localization.world.nether": "Ад",
+  "kelutils.config.localization.world.overworld": "Верхний мир",
+  "kelutils.config.localization.world.unknown": "What?",
+
+  "kelutils.hud": "%name% %item%• %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 • %date%",
+  "kelutils.item": "%item%",
+  "kelutils.item.format": "• %item_name% %item_pcs% ",
+  "kelutils.item.format.count": "%item_count% шт.",
+  "kelutils.address.hidden": "Кофе?",
+  "kelutils.address": "%address%",
+  "kelutils.singleplayer": "Одиночка",
+  "kelutils.date.format": "%time_format%",
+  "kelutils.date": "dd.MM.yy",
+  "kelutils.date.time": "HH:mm:ss",
+  "kelutils.time.morning": "Утро",
+  "kelutils.time.day": "День",
+  "kelutils.time.evening": "Вечер",
+  "kelutils.time.night": "Ночь",
+  "kelutils.world.moon": "Луна",
+  "kelutils.world.the_end": "The End?",
+  "kelutils.world.nether": "Ад",
+  "kelutils.world.overworld": "Верхний мир",
+  "kelutils.world.unknown": "What?",
+
+  "kelutils.bot.activity": "Minecraft %version%",
+
+  "kelutils.bot.permission": "Вы не можете управлять игроком >:(",
+  "kelutils.bot.disconnect": "Я отключаюсь",
+  "kelutils.bot.disconnect.screen": "Вы были отключены через бота Discord",
+  "kelutils.bot.disconnect.not": "Невозможно отключится",
+  "kelutils.bot.exit": "Всего хорошего, сэр!",
+  "kelutils.bot.screenshot": "Был сделан скриншот от %date_format%, %time_format%",
+  "kelutils.bot.screenshot.try": "Я начала попытку сделать скриншот",
+  "kelutils.bot.screenshot.file": "%date_format%_%time_format%",
+
+  "kelutils.bot.button.screenshot": "Сделать скриншот",
+  "kelutils.bot.button.exit": "Выход",
+
+  "kelutils.bot.info.title": "Информация игрока",
+
+  "kelutils.bot.info.notworld": "Игрок не находится в мире",
+  "kelutils.bot.info.title.health": "Здоровье",
+  "kelutils.bot.info.health": "> %health_percent%%  ❤",
+  "kelutils.bot.info.dead": "> %name% умер :<",
+
+  "kelutils.bot.info.title.armor": "Броня",
+  "kelutils.bot.info.armor": "> %armor% ⛊",
+
+  "kelutils.bot.info.title.xp": "Опыт",
+  "kelutils.bot.info.xp": "> %xp%",
+
+  "kelutils.bot.info.title.position": "Позиция",
+  "kelutils.bot.info.position": "> %x% %y% %z%",
+
+  "kelutils.bot.info.title.world": "Мир",
+  "kelutils.bot.info.world": "> %world%",
+
+  "kelutils.bot.info.title.world.time": "Игровое время",
+  "kelutils.bot.info.world.time": "> %world_time%",
+
+  "kelutils.bot.info.title.scene": "Сцена",
+  "kelutils.bot.info.scene": "> %scene%",
+
+  "kelutils.bot.info.title.item": "Предметы",
+  "kelutils.bot.info.item": "> %item_bot%"
+}

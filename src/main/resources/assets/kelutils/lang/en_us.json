@@ -1,9 +1,11 @@
 {
   "kelutils.name": "KelUtils",
+  "kelutils.key.openconfig": "Open configs",
   "kelutils.key.gamma.uo": "Gamma: +10",
   "kelutils.key.gamma.down": "Gamma: -10",
   "kelutils.key.gamma.toggle": "Toggle Gamma",
 
+  "kelutils.message.clothConfigNotFound": "§7KelUtils§r » Install the §7Cloth Config§r mod to display the config window. =-=",
 
   "kelutils.config.client": "Client",
 
@@ -43,7 +45,7 @@
   "kelutils.config.localization.date": "Date",
   "kelutils.config.localization.date.time": "Time",
 
-  "kelutils.config.localization.title.time": "Time",
+  "kelutils.config.localization.title.time": "World Time",
   "kelutils.config.localization.time.morning": "Morning",
   "kelutils.config.localization.time.day": "Day",
   "kelutils.config.localization.time.evening": "Evening",
@@ -56,15 +58,17 @@
   "kelutils.config.localization.world.overworld": "The Overworld",
   "kelutils.config.localization.world.unknown": "What?",
 
-  "kelutils.hud": "%name% • %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 %item%",
+  "kelutils.hud": "%name% %item%• %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 • %date%",
   "kelutils.item": "%item%",
-  "kelutils.item.format": "• %item_name% %item_pcs%",
+  "kelutils.item.format": "• %item_name% %item_pcs% ",
+  "kelutils.item.format.bot": "%item_name% %item_pcs% ",
   "kelutils.item.format.count": "%item_count% pcs.",
   "kelutils.address.hidden": "Coffee?",
   "kelutils.address": "%address%",
-  "kelutils.date.format": "%date_format%, %time_format%",
+  "kelutils.singleplayer": "Singleplayer",
+  "kelutils.date.format": "%time_format%",
   "kelutils.date": "MM/dd/yy",
-  "kelutils.date.time": "hh:mm",
+  "kelutils.date.time": "hh:mm:ss",
   "kelutils.time.morning": "Morning",
   "kelutils.time.day": "Day",
   "kelutils.time.evening": "Evening",
@@ -73,5 +77,47 @@
   "kelutils.world.the_end": "The End?",
   "kelutils.world.nether": "The Nether",
   "kelutils.world.overworld": "The Overworld",
-  "kelutils.world.unknown": "What?"
+  "kelutils.world.unknown": "What?",
+
+  "kelutils.bot.activity": "Minecraft %version%",
+  "kelutils.bot.permission": "You can't control a player >:(",
+  "kelutils.bot.disconnect": "I'm disconnecting",
+  "kelutils.bot.disconnect.screen": "You were disconnected through the Discord bot",
+  "kelutils.bot.disconnect.not": "Unable to disconnect",
+  "kelutils.bot.exit": "Goodbye, sir!",
+  "kelutils.bot.screenshot": "A screenshot was taken from %date_format%, %time_format%",
+  "kelutils.bot.screenshot.try": "I started trying to take a screenshot",
+  "kelutils.bot.screenshot.file": "%date_format%_%time_format%",
+
+  "kelutils.bot.button.screenshot": "Take screenshot",
+  "kelutils.bot.button.exit": "Exit",
+
+  "kelutils.bot.info.title": "Player information",
+
+  "kelutils.bot.info.notworld": "The player is not in the world",
+  "kelutils.bot.info.title.health": "Health",
+  "kelutils.bot.info.health": "> %health_percent%% ❤",
+  "kelutils.bot.info.dead": "> %name% dead :<",
+
+  "kelutils.bot.info.title.armor": "Armor",
+  "kelutils.bot.info.armor": "> %armor% ⛊",
+
+  "kelutils.bot.info.title.xp": "Experience",
+  "kelutils.bot.info.xp": "> %xp% ⌛",
+
+  "kelutils.bot.info.title.position": "Experience",
+  "kelutils.bot.info.position": "> %x% %y% %z%",
+
+  "kelutils.bot.info.title.world": "World",
+  "kelutils.bot.info.world": "> %world%",
+
+  "kelutils.bot.info.title.world.time": "World Time",
+  "kelutils.bot.info.world.time": "> %world_time%",
+
+  "kelutils.bot.info.title.scene": "Scene",
+  "kelutils.bot.info.scene": "> %scene%",
+
+  "kelutils.bot.info.title.item": "Item",
+  "kelutils.bot.info.item": "> %item_bot%"
+
 }

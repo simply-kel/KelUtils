@@ -1,8 +1,10 @@
 plugins {
     id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'maven-publish'
 }
 
+apply plugin: 'com.github.johnrengelman.shadow'
 version = project.mod_version
 group = project.maven_group
 
@@ -25,6 +27,7 @@ repositories {
     }
 }
 
+configurations { shade }
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -47,10 +50,20 @@ dependencies {
     // For support work simplystatus
     implementation ("club.minnced:discord-rpc-release:v3.4.0")
     implementation ("com.github.MinnDevelopment:java-discord-rpc:v2.0.2")
-    implementation "com.github.TopiSenpai.LavaSrc:lavasrc:3.2.4"
+    implementation ("com.github.TopiSenpai.LavaSrc:lavasrc:3.2.4")
     // For support JDA or Discord Bot
-    implementation("net.dv8tion:JDA:5.0.0-beta.10")
+//    include(implementation ("gnu.trove:trove:${project.trove}"))
+    implementation shade("net.dv8tion:JDA:5.0.0-beta.11") {
+        exclude module: 'opus-java'
+        exclude module: "jna"
+    };
+    subprojects.each {
+        implementation project(path: ":${it.name}", configuration: 'namedElements')
+        implementation project(path: ":${it.name}", configuration: 'shade')
+        include project("${it.name}:")
+    }
 }
+
 
 processResources {
     inputs.property "version", project.version
@@ -77,17 +90,27 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
+// Produce additional distributions
 java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
-    archivesBaseName = project.archives_base_name
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
+
+// Produce a fat-jar of all shaded dependencies
+shadowJar {
+    configurations = [project.configurations.shade]
+    destinationDirectory.set(layout.buildDirectory.dir('devlibs'))
+}
+
+remapJar {
+    dependsOn tasks.shadowJar
+    inputFile.set(tasks.shadowJar.archiveFile)
+}
+
+components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElements) { skip() }
 
 jar {
     from("LICENSE") {

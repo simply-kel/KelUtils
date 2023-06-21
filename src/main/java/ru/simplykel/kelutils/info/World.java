@@ -6,6 +6,7 @@ import ru.simplykel.kelutils.config.Localization;
 public class World {
     public static String getTime(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
+        if(CLIENT.world == null) return "";
         long currentTime = CLIENT.world.getLunarTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
             return Localization.getLocalization("time.morning", false);

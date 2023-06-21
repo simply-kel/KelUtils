@@ -4,9 +4,12 @@
   "package": "ru.simplykel.kelutils.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "GameRendererMixin",
     "MinecraftClientAccess"
   ],
   "client": [
+    "ScreenshotMixinAWT",
+    "NativeImagePointerAccessor",
     "MixinSimpleOption"
   ],
   "injectors": {

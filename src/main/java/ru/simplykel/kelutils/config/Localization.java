@@ -94,13 +94,19 @@ public class Localization {
     public static MutableText getText(String key){
         return Text.translatable(key);
     }
+
+    /**
+     * Перевод String в MutableText
+     * @param text
+     * @return MutableText
+     */
     public static MutableText toText(String text){
         return Text.literal(text);
     }
 
 
     /**
-     * Кто прочтёл описание, тот крутой, как мега база PWGood'а на Майншилде
+     * Парс текста
      * @param text
      * @return String
      */
@@ -127,7 +133,9 @@ public class Localization {
         parsedText = parsedText.replace("%name%", CLIENT.getSession().getUsername());
         if(CLIENT.world != null && CLIENT.player != null){
             if(Player.getItemName() == null) parsedText = parsedText.replace("%item%", "");
+            if(Player.getItemName() == null) parsedText = parsedText.replace("%item_bot%", "");
             parsedText = parsedText.replace("%item%", Localization.getLocalization("item.format", false));
+            parsedText = parsedText.replace("%item_bot%", Localization.getLocalization("item.format.bot", false));
             parsedText = parsedText.replace("%item_name%", Player.getItemName()+"");
             if(Player.getItemCount() >= 2) {
                 parsedText = parsedText.replace("%item_pcs%", Localization.getLocalization("item.format.count", false));
@@ -141,28 +149,35 @@ public class Localization {
             parsedText = parsedText.replace("%z%", Player.getZ());
             if(!CLIENT.isInSingleplayer() && CLIENT.getCurrentServerEntry() != null){
                 ServerConfig.load();
+                parsedText = parsedText.replace("%scene%", "%address%");
                 if(ServerConfig.SHOW_ADDRESS){
                     if(ServerConfig.SHOW_CUSTOM_NAME) parsedText = parsedText.replace("%address%", ServerConfig.CUSTOM_NAME);
                     else if(ServerConfig.SHOW_NAME_IN_LIST) parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().name);
                     else parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().address);
                 } else parsedText = parsedText.replace("%address%", getLocalization("address.hidden", false));
-//                parsedText = parsedText.replace("%ping%", CLIENT.player.networkHandler.getPlayerListEntry(CLIENT.player.getUuid()).getLatency()+"ms");
-            }
+            } else parsedText = parsedText.replace("%scene%", Localization.getLocalization("singleplayer", false));
             parsedText = parsedText.replace("%health%", Player.getHealth());
             parsedText = parsedText.replace("%health_max%", Player.getMaxHealth());
             parsedText = parsedText.replace("%health_percent%", Player.getPercentHealth());
             parsedText = parsedText.replace("%armor%", Player.getArmor());
+            parsedText = parsedText.replace("%xp%", String.valueOf(CLIENT.player.experienceLevel));
             parsedText = parsedText.replace("%gamma%", Main.DF.format(CLIENT.options.getGamma().getValue()*100));
             parsedText = parsedText.replace("%sps%", MinecraftClientAccess.getCurrentFps()+"FPS");
             parsedText = parsedText.replace("%fps%", MinecraftClientAccess.getCurrentFps()+"FPS");
             parsedText = parsedText.replace("%world%", World.getName());
             parsedText = parsedText.replace("%world_time%", World.getTime());
             parsedText = parsedText.replace("%time%", World.getTime());
+        }
+        try{
             DateFormat dateFormat = new SimpleDateFormat(Localization.getLocalization("date", false));
             DateFormat timeFormat = new SimpleDateFormat(Localization.getLocalization("date.time", false));
             parsedText = parsedText.replace("%date%", Localization.getLocalization("date.format", false));
+            parsedText = parsedText.replace("%sate%", Localization.getLocalization("date.format", false));
             parsedText = parsedText.replace("%date_format%", dateFormat.format(System.currentTimeMillis()));
+            parsedText = parsedText.replace("%sate_format%", dateFormat.format(System.currentTimeMillis()));
             parsedText = parsedText.replace("%time_format%", timeFormat.format(System.currentTimeMillis()));
+        } catch (Exception e) {
+
         }
         return parsedText;
     }

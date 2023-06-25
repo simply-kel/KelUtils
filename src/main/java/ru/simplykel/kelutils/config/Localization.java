@@ -6,6 +6,8 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.json.JSONObject;
 import ru.simplykel.kelutils.Main;
+import ru.simplykel.kelutils.info.Audio;
+import ru.simplykel.kelutils.info.Game;
 import ru.simplykel.kelutils.info.Player;
 import ru.simplykel.kelutils.info.World;
 import ru.simplykel.kelutils.mixin.MinecraftClientAccess;
@@ -104,6 +106,15 @@ public class Localization {
         return Text.literal(text);
     }
 
+    /**
+     * Перевод Text в String
+     * @param text
+     * @return MutableText
+     */
+    public static String toString(Text text){
+        return text.getString();
+    }
+
 
     /**
      * Парс текста
@@ -131,6 +142,20 @@ public class Localization {
             }
         }
         parsedText = parsedText.replace("%name%", CLIENT.getSession().getUsername());
+        switch (Game.getGameState()){
+            case 0 -> parsedText = parsedText.replace("%screen%", "%scene%");
+            case 1 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.loading", false));
+            case 2 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.connect", false));
+            case 3 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.disconnect", false));
+            case 4 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.options", false));
+            case 5 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.multiplayer", false));
+            case 6 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.multiplayer.add", false));
+            case 7 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.world", false));
+            case 8 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.world.create", false));
+            case 9 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.world.edit", false));
+            case 10 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.world.optimize", false));
+            case 11 -> parsedText = parsedText.replace("%screen%", Localization.getLocalization("screens.title", false));
+        }
         if(CLIENT.world != null && CLIENT.player != null){
             if(Player.getItemName() == null) parsedText = parsedText.replace("%item%", "");
             if(Player.getItemName() == null) parsedText = parsedText.replace("%item_bot%", "");
@@ -167,6 +192,9 @@ public class Localization {
             parsedText = parsedText.replace("%world%", World.getName());
             parsedText = parsedText.replace("%world_time%", World.getTime());
             parsedText = parsedText.replace("%time%", World.getTime());
+            parsedText = parsedText.replace("%near_players%", String.valueOf(CLIENT.world.getPlayers().size()));
+            parsedText = parsedText.replace("%near_mobs%", String.valueOf(CLIENT.world.getEntities().spliterator().estimateSize() - CLIENT.world.getPlayers().size()));
+            parsedText = parsedText.replace("%near_entities%", String.valueOf(CLIENT.world.getEntities().spliterator().estimateSize()));
         }
         try{
             DateFormat dateFormat = new SimpleDateFormat(Localization.getLocalization("date", false));
@@ -176,6 +204,7 @@ public class Localization {
             parsedText = parsedText.replace("%date_format%", dateFormat.format(System.currentTimeMillis()));
             parsedText = parsedText.replace("%sate_format%", dateFormat.format(System.currentTimeMillis()));
             parsedText = parsedText.replace("%time_format%", timeFormat.format(System.currentTimeMillis()));
+            parsedText = parsedText.replace("%system_volume%", String.valueOf(Audio.getValue()));
         } catch (Exception e) {
 
         }

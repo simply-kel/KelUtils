@@ -17,6 +17,11 @@ public class MainConfigs {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.ENABLE_HUD_INFORMATION = newValue)
                 .build());
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("kelutils.config.client.discord_use"), UserConfig.DISCORD_USE)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> UserConfig.DISCORD_USE = newValue)
+                .build());
         ///
         category.addEntry(entryBuilder.startTextDescription(Localization.getText("kelutils.config.title.gamma")).build());
         //
@@ -33,6 +38,18 @@ public class MainConfigs {
         category.addEntry(entryBuilder.startDoubleField(Localization.getText("kelutils.config.client.select_gamma_volume"), UserConfig.SELECT_GAMMA_VOLUME)
                 .setDefaultValue(5.0)
                 .setSaveConsumer(newValue -> UserConfig.SELECT_GAMMA_VOLUME = newValue)
+                .build());
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("kelutils.config.title.system")).build());
+        //
+        category.addEntry(entryBuilder.startIntField(Localization.getText("kelutils.config.client.current_system_volume"), UserConfig.SELECT_SYSTEM_VOLUME)
+                .setDefaultValue(1)
+                .setSaveConsumer(newValue -> UserConfig.SELECT_SYSTEM_VOLUME = newValue)
+                .build());
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("kelutils.config.client.icon_snapshot"), UserConfig.ICON_SNAPSHOT)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> UserConfig.ICON_SNAPSHOT = newValue)
                 .build());
 
         return category;

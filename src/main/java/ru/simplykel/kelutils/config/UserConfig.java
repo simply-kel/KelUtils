@@ -13,6 +13,8 @@ public class UserConfig {
     public static double NORMAL_GAMMA_VOLUME = 0.5;
     public static double CURRENT_GAMMA_VOLUME = 0.5;
     public static double SELECT_GAMMA_VOLUME = 5.0;
+    public static int SELECT_SYSTEM_VOLUME = 1;
+    public static boolean ICON_SNAPSHOT = false;
     public static boolean GAMMA_ACTIVATED = false;
     public static String DISCORD_TOKEN = "";
     public static boolean DISCORD_USE = false;
@@ -30,6 +32,8 @@ public class UserConfig {
                 .put("NORMAL_GAMMA_VOLUME", NORMAL_GAMMA_VOLUME)
                 .put("SELECT_GAMMA_VOLUME", SELECT_GAMMA_VOLUME)
                 .put("GAMMA_ACTIVATED", GAMMA_ACTIVATED)
+                .put("SELECT_SYSTEM_VOLUME", SELECT_SYSTEM_VOLUME)
+                .put("ICON_SNAPSHOT", ICON_SNAPSHOT)
                 .put("DISCORD_TOKEN", DISCORD_TOKEN)
                 .put("DISCORD_USE", DISCORD_USE);
         try {
@@ -66,11 +70,17 @@ public class UserConfig {
             if(!jsonConfig.isNull("SELECT_GAMMA_VOLUME")) SELECT_GAMMA_VOLUME = jsonConfig.getDouble("SELECT_GAMMA_VOLUME");
             else SELECT_GAMMA_VOLUME = 5.0;
 
+            if(!jsonConfig.isNull("SELECT_SYSTEM_VOLUME")) SELECT_SYSTEM_VOLUME = jsonConfig.getInt("SELECT_SYSTEM_VOLUME");
+            else SELECT_SYSTEM_VOLUME = 1;
+
             if(!jsonConfig.isNull("DISCORD_USE")) DISCORD_USE = jsonConfig.getBoolean("DISCORD_USE");
             else DISCORD_USE = true;
 
             if(!jsonConfig.isNull("DISCORD_TOKEN")) DISCORD_TOKEN = jsonConfig.getString("DISCORD_TOKEN");
             else DISCORD_TOKEN = "";
+
+            if(!jsonConfig.isNull("ICON_SNAPSHOT")) ICON_SNAPSHOT = jsonConfig.getBoolean("ICON_SNAPSHOT");
+            else ICON_SNAPSHOT = false;
         } catch (Exception e){
             e.printStackTrace();
             save();

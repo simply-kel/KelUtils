@@ -12,6 +12,7 @@ import java.nio.file.Path;
 public class DiscordConfig {
     public static String DISCORD_TOKEN = "";
     public static String USER_ID = "";
+    public static Boolean REGISTER_COMMANDS = true;
     /**
      * Сохранение конфигурации
      */
@@ -20,7 +21,8 @@ public class DiscordConfig {
         final Path configFile = mc.runDirectory.toPath().resolve("KelUtils/discord.json");
         JSONObject jsonConfig = new JSONObject();
         jsonConfig.put("DISCORD_TOKEN", DISCORD_TOKEN)
-                .put("USER_ID", USER_ID);
+                .put("USER_ID", USER_ID)
+                .put("REGISTER_COMMANDS", REGISTER_COMMANDS);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -43,7 +45,9 @@ public class DiscordConfig {
             // USER ID
             if(!jsonConfig.isNull("USER_ID")) USER_ID = jsonConfig.getString("USER_ID");
             else if(Main.simplyStatus) USER_ID = Client.USER.userId;
-            else USER_ID = "";
+            // REGISTER COMMANDS
+            if(!jsonConfig.isNull("REGISTER_COMMANDS")) REGISTER_COMMANDS = jsonConfig.getBoolean("REGISTER_COMMANDS");
+            else REGISTER_COMMANDS = true;
         } catch (Exception e){
             e.printStackTrace();
             save();

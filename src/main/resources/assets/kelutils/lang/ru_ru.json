@@ -3,6 +3,8 @@
   "kelutils.key.openconfig": "Открыть конфиги",
   "kelutils.key.gamma.uo": "Гамма: +10",
   "kelutils.key.gamma.down": "Гамма: -10",
+  "kelutils.key.volume.up": "Добавить громкость",
+  "kelutils.key.volume.down": "Убавить громкость",
   "kelutils.key.gamma.toggle": "Переключить гамму",
 
   "kelutils.message.clothConfigNotFound": "§7KelUtils§r » Установите мод §7Cloth Config§r для показа окна конфигурации. =-=",
@@ -11,11 +13,16 @@
 
   "kelutils.config.title.functions": "Функции",
   "kelutils.config.client.enable_hud_information": "Включить HUD Информацию",
+  "kelutils.config.client.discord_use": "Включить дискорд бота",
 
   "kelutils.config.title.gamma": "Гамма",
   "kelutils.config.client.normal_gamma_volume": "Нормальное значение гаммы",
   "kelutils.config.client.current_gamma_volume": "Текущее значение гаммы",
   "kelutils.config.client.select_gamma_volume": "Выбранное значение гаммы",
+
+  "kelutils.config.title.system": "Система",
+  "kelutils.config.client.current_system_volume": "Выбранное значение громкости",
+  "kelutils.config.client.icon_snapshot": "Использовать иконку Snapshot",
 
 
   "kelutils.config.server": "Текущий сервер",
@@ -23,7 +30,7 @@
   "kelutils.config.server.show_name_in_list": "Показывать название из списка",
   "kelutils.config.server.show_custom_name": "Показать кастом. название",
   "kelutils.config.server.custom_name": "Кастом. название",
-
+  "kelutils.config.server.send_chat_to_pm": "Чат в ЛС",
 
   "kelutils.config.localization": "Локализация",
   "kelutils.config.localization.title.information": "Информация",
@@ -76,23 +83,38 @@
   "kelutils.world.overworld": "Верхний мир",
   "kelutils.world.unknown": "What?",
 
+  "kelutils.screens.loading": "Загрузка...",
+  "kelutils.screens.connect": "Подключение...",
+  "kelutils.screens.disconnect": "Отключён",
+  "kelutils.screens.options": "Настройки игры",
+  "kelutils.screens.multiplayer": "Список серверов",
+  "kelutils.screens.multiplayer.add": "Добавление сервера",
+  "kelutils.screens.world": "Список миров",
+  "kelutils.screens.world.create": "Создание мира",
+  "kelutils.screens.world.edit": "Редактирование мира",
+  "kelutils.screens.world.optimize": "Оптимизация мира",
+  "kelutils.screens.title": "Главное меню",
+
   "kelutils.bot.activity": "Minecraft %version%",
 
   "kelutils.bot.permission": "Вы не можете управлять игроком >:(",
-  "kelutils.bot.disconnect": "Я отключаюсь",
-  "kelutils.bot.disconnect.screen": "Вы были отключены через бота Discord",
-  "kelutils.bot.disconnect.not": "Невозможно отключится",
   "kelutils.bot.exit": "Всего хорошего, сэр!",
   "kelutils.bot.screenshot": "Был сделан скриншот от %date_format%, %time_format%",
+  "kelutils.bot.screenshot.message": "Скриншот был отправлен в личные сообщения.",
   "kelutils.bot.screenshot.try": "Я начала попытку сделать скриншот",
   "kelutils.bot.screenshot.file": "%date_format%_%time_format%",
+  "kelutils.bot.volume.up": "Добавила громкость.",
+  "kelutils.bot.volume.down": "Сделала потише.",
+  "kelutils.bot.chat.send": "Было получено сообщение / %address%",
 
   "kelutils.bot.button.screenshot": "Сделать скриншот",
   "kelutils.bot.button.exit": "Выход",
+  "kelutils.bot.button.volume.up": "Громче",
+  "kelutils.bot.button.volume.down": "Тише",
 
   "kelutils.bot.info.title": "Информация игрока",
 
-  "kelutils.bot.info.notworld": "Игрок не находится в мире",
+  "kelutils.bot.info.notworld": "Игрок в %screen%",
   "kelutils.bot.info.title.health": "Здоровье",
   "kelutils.bot.info.health": "> %health_percent%%  ❤",
   "kelutils.bot.info.dead": "> %name% умер :<",

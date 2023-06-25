@@ -3,6 +3,8 @@
   "kelutils.key.openconfig": "Open configs",
   "kelutils.key.gamma.uo": "Gamma: +10",
   "kelutils.key.gamma.down": "Gamma: -10",
+  "kelutils.key.volume.up": "Volume up",
+  "kelutils.key.volume.down": "Volume down",
   "kelutils.key.gamma.toggle": "Toggle Gamma",
 
   "kelutils.message.clothConfigNotFound": "§7KelUtils§r » Install the §7Cloth Config§r mod to display the config window. =-=",
@@ -11,11 +13,16 @@
 
   "kelutils.config.title.functions": "Functions",
   "kelutils.config.client.enable_hud_information": "Enable HUD Information",
+  "kelutils.config.client.discord_use": "Enable Discord Bot",
 
   "kelutils.config.title.gamma": "Gamma",
   "kelutils.config.client.normal_gamma_volume": "Normal Gamma Volume",
   "kelutils.config.client.current_gamma_volume": "Current Gamma Volume",
   "kelutils.config.client.select_gamma_volume": "Selected Gamma Volume",
+
+  "kelutils.config.title.system": "System",
+  "kelutils.config.client.current_system_volume": "Selected Value Volume",
+  "kelutils.config.client.icon_snapshot": "Use Snapshot icon",
 
 
   "kelutils.config.server": "Current Server",
@@ -25,7 +32,7 @@
   "kelutils.config.server.custom_name": "Custom name",
   "kelutils.config.server.show_icon": "Show icon",
   "kelutils.config.server.icon_url": "Icon URL",
-
+  "kelutils.config.server.send_chat_to_pm": "Chat to PM",
 
   "kelutils.config.localization": "Localizations",
   "kelutils.config.localization.title.information": "Information",
@@ -79,22 +86,37 @@
   "kelutils.world.overworld": "The Overworld",
   "kelutils.world.unknown": "What?",
 
+  "kelutils.screens.loading": "Loading...",
+  "kelutils.screens.connect": "Connecting...",
+  "kelutils.screens.disconnect": "Disconnected",
+  "kelutils.screens.options": "Game options",
+  "kelutils.screens.multiplayer": "Multiplayer list",
+  "kelutils.screens.multiplayer.add": "Server add",
+  "kelutils.screens.world": "Worlds List",
+  "kelutils.screens.world.create": "World create",
+  "kelutils.screens.world.edit": "World edit",
+  "kelutils.screens.world.optimize": "World optimize",
+  "kelutils.screens.title": "Main menu",
+
   "kelutils.bot.activity": "Minecraft %version%",
   "kelutils.bot.permission": "You can't control a player >:(",
-  "kelutils.bot.disconnect": "I'm disconnecting",
-  "kelutils.bot.disconnect.screen": "You were disconnected through the Discord bot",
-  "kelutils.bot.disconnect.not": "Unable to disconnect",
   "kelutils.bot.exit": "Goodbye, sir!",
   "kelutils.bot.screenshot": "A screenshot was taken from %date_format%, %time_format%",
+  "kelutils.bot.screenshot.message": "A screenshot was sent to private messages.",
   "kelutils.bot.screenshot.try": "I started trying to take a screenshot",
   "kelutils.bot.screenshot.file": "%date_format%_%time_format%",
+  "kelutils.bot.volume.up": "Volume up",
+  "kelutils.bot.volume.down": "Volume down.",
+  "kelutils.bot.chat.send": "A message was received / %address%",
 
   "kelutils.bot.button.screenshot": "Take screenshot",
   "kelutils.bot.button.exit": "Exit",
+  "kelutils.bot.button.volume.up": "Volume up",
+  "kelutils.bot.button.volume.down": "Volume down",
 
   "kelutils.bot.info.title": "Player information",
 
-  "kelutils.bot.info.notworld": "The player is not in the world",
+  "kelutils.bot.info.notworld": "Player in the %screen%",
   "kelutils.bot.info.title.health": "Health",
   "kelutils.bot.info.health": "> %health_percent%% ❤",
   "kelutils.bot.info.dead": "> %name% dead :<",

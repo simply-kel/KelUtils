@@ -10,7 +10,8 @@
   "client": [
     "ScreenshotMixinAWT",
     "NativeImagePointerAccessor",
-    "MixinSimpleOption"
+    "MixinSimpleOption",
+    "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

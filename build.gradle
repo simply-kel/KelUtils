@@ -32,25 +32,28 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+//    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // https://mvnrepository.com/artifact/org.json/json
-    implementation("org.json:json:20230227")
+    include(implementation("org.json:json:20230227"))
     // libs
     modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
     modApi "maven.modrinth:simplystatus:${project.simplystatus}"
+    modApi "maven.modrinth:fastload:${project.fastload}"
     // Support Music Player for FabricMC
 //    modImplementation "info.u-team:music_player-fabric-${project.musicplayer}";
+    implementation shade('com.github.bjoernpetersen:volctl:3.0.0')
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // For support work simplystatus
-    implementation ("club.minnced:discord-rpc-release:v3.4.0")
-    implementation ("com.github.MinnDevelopment:java-discord-rpc:v2.0.2")
-    implementation ("com.github.TopiSenpai.LavaSrc:lavasrc:3.2.4")
+    include(implementation ("club.minnced:discord-rpc-release:v3.4.0"))
+    include(implementation ("com.github.MinnDevelopment:java-discord-rpc:v2.0.2"))
+    include(implementation ("com.github.TopiSenpai.LavaSrc:lavasrc:3.2.4"))
     // For support JDA or Discord Bot
 //    include(implementation ("gnu.trove:trove:${project.trove}"))
     implementation shade("net.dv8tion:JDA:5.0.0-beta.11") {

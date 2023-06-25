@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ru.simplykel.kelutils.Main;
 import ru.simplykel.kelutils.config.Localization;
 import ru.simplykel.kelutils.discord.Bot;
+import ru.simplykel.kelutils.info.Game;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
@@ -23,6 +24,7 @@ public abstract class GameRendererMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void render(float f, long l, boolean bl, CallbackInfo ci) {
+        Game.tick();
         MinecraftClient mc = MinecraftClient.getInstance();
         if(Bot.takeScreenshotBot){
             Bot.takeScreenshotBot = false;

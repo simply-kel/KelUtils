@@ -1,7 +1,6 @@
 package ru.simplykel.kelutils.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import net.dv8tion.jda.api.entities.User;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.Icons;

@@ -12,8 +12,6 @@ import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.tutorial.TutorialStep;
 import net.minecraft.client.util.Icons;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.network.packet.c2s.play.ResourcePackStatusC2SPacket;
-import net.minecraft.resource.*;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryUtil;
@@ -180,6 +178,7 @@ public class Main implements ClientModInitializer {
             }
         });
     }
+    // STARTING FUNCTIONS
     public static void start(){
         TIMER.scheduleAtFixedRate(new TimerTask() {
             @Override

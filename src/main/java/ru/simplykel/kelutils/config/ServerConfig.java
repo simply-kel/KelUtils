@@ -24,8 +24,8 @@ public class ServerConfig {
         jsonConfig.put("SHOW_ADDRESS", SHOW_ADDRESS)
                 .put("SHOW_NAME_IN_LIST", SHOW_NAME_IN_LIST)
                 .put("SHOW_CUSTOM_NAME", SHOW_CUSTOM_NAME)
-                .put("CUSTOM_NAME", CUSTOM_NAME)
-                .put("SEND_CHAT_TO_PM", SEND_CHAT_TO_PM);
+                .put("CUSTOM_NAME", CUSTOM_NAME);
+//                .put("SEND_CHAT_TO_PM", SEND_CHAT_TO_PM);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -56,8 +56,8 @@ public class ServerConfig {
             else SHOW_CUSTOM_NAME = false;
             if(!jsonConfig.isNull("CUSTOM_NAME")) CUSTOM_NAME = jsonConfig.getString("CUSTOM_NAME");
             else CUSTOM_NAME = "";
-            if(!jsonConfig.isNull("SEND_CHAT_TO_PM")) SEND_CHAT_TO_PM = jsonConfig.getBoolean("SEND_CHAT_TO_PM");
-            else SEND_CHAT_TO_PM = false;
+//            if(!jsonConfig.isNull("SEND_CHAT_TO_PM")) SEND_CHAT_TO_PM = jsonConfig.getBoolean("SEND_CHAT_TO_PM");
+//            else SEND_CHAT_TO_PM = false;
         } catch (Exception e){
             e.printStackTrace();
             clear();

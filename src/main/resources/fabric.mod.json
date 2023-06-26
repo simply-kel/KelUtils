@@ -10,7 +10,7 @@
   "contact": {
     "repo": "https://github.com/simply-kel/KelUtils"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "icon": "assets/kelutils/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -27,6 +27,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": [ ">=1.19" ]
   }
 }

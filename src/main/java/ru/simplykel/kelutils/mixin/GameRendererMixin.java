@@ -1,10 +1,6 @@
 package ru.simplykel.kelutils.mixin;
-import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
+
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.ScreenshotRecorder;
@@ -14,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import ru.simplykel.kelutils.Main;
-import ru.simplykel.kelutils.config.Localization;
 import ru.simplykel.kelutils.discord.Bot;
 import ru.simplykel.kelutils.info.Game;
 

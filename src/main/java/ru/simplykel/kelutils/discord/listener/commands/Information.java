@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.minecraft.client.MinecraftClient;
 import ru.simplykel.kelutils.config.Localization;
-import ru.simplykel.kelutils.discord.Bot;
 import ru.simplykel.kelutils.info.Player;
 
 import java.awt.*;

@@ -11,8 +11,6 @@ import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
 import net.minecraft.network.message.MessageSignatureData;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
-import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.kelutils.config.ServerConfig;
 import ru.simplykel.kelutils.discord.Bot;
 

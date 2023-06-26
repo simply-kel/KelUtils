@@ -1,6 +1,5 @@
 package ru.simplykel.kelutils.info;
 
-import com.ibm.icu.text.CaseMap;
 import io.github.bumblesoftware.fastload.client.BuildingTerrainScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.*;

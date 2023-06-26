@@ -1,9 +1,7 @@
 package ru.simplykel.kelutils.discord.listener.commands;
 
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import ru.simplykel.kelutils.config.Localization;
-import ru.simplykel.kelutils.discord.Bot;
 import ru.simplykel.kelutils.info.Audio;
 
 public class Volume {

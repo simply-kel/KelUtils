@@ -4,7 +4,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.minecraft.client.MinecraftClient;
 import ru.simplykel.kelutils.config.Localization;
-import ru.simplykel.kelutils.discord.Bot;
 
 public class Exit {
     public Exit(SlashCommandInteractionEvent e){

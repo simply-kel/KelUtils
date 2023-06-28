@@ -24,6 +24,10 @@ import org.apache.logging.log4j.Logger;
 import ru.simplykel.kelutils.config.gui.ConfigScreen;
 import ru.simplykel.kelutils.discord.Bot;
 import ru.simplykel.kelutils.info.Audio;
+import ru.simplykel.kelutils.info.Window;
+import ru.simplykel.kelutils.lavaplayer.MusicManager;
+import ru.simplykel.kelutils.lavaplayer.MusicPlayer;
+import ru.simplykel.kelutils.lavaplayer.MusicScreen;
 import ru.simplykel.kelutils.mixin.NativeImagePointerAccessor;
 
 import javax.imageio.ImageIO;
@@ -45,9 +49,11 @@ public class Main implements ClientModInitializer {
     public static Boolean simplyStatus = FabricLoader.getInstance().getModContainer("simplystatus").isPresent();
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
+    public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
     public static DecimalFormat DF = new DecimalFormat("#.##");
     private static Timer TIMER = new Timer();
     private static String lastException;
+    public static MusicPlayer music;
     @Override
     public void onInitializeClient() {
         LOG.info("[KelLibs] Hello, world!");
@@ -57,51 +63,110 @@ public class Main implements ClientModInitializer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        KeyBinding openConfigKey;
-        openConfigKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        music = new MusicPlayer();
+        music.startAudioOutput();
+        KeyBinding openConfigKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.openconfig",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_RIGHT_ALT, // The keycode of the key
                 "kelutils.name"
         ));
-        KeyBinding gammaUpKey;
-        gammaUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        KeyBinding gammaUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.gamma.up",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_UP, // The keycode of the key
                 "kelutils.name"
         ));
-        KeyBinding gammaDownKey;
-        gammaDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        KeyBinding gammaDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.gamma.down",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_DOWN, // The keycode of the key
                 "kelutils.name"
         ));
-        KeyBinding gammaToggleKey;
-        gammaToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        KeyBinding gammaToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.gamma.toggle",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_G, // The keycode of the key
                 "kelutils.name"
         ));
-        KeyBinding volumeUpKey;
-        volumeUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        KeyBinding volumeUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.up",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_RIGHT, // The keycode of the key
                 "kelutils.name"
         ));
-        KeyBinding volumeDownKey;
-        volumeDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        KeyBinding volumeDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.down",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_LEFT, // The keycode of the key
                 "kelutils.name"
         ));
+//        KeyBinding geyPorn2023 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+//                "kelutils.key.geyPorn2023",
+//                InputUtil.Type.KEYSYM,
+//                GLFW.GLFW_KEY_X, // The keycode of the key
+//                "kelutils.name"
+//        ));
+        KeyBinding playOrPause = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.music.pause",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_P, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding loadTrack = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.music.load",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_L, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding skipTrack = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.music.skip",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_PLATFORM_NULL, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding volumeMusicUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.volume.music.up",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_PLATFORM_NULL, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding volumeMusicDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.volume.music.down",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_PLATFORM_NULL, // The keycode of the key
+                "kelutils.name"
+        ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             UserConfig.load();
+            while (playOrPause.wasPressed()){
+                music.getAudioPlayer().setPaused(!music.getAudioPlayer().isPaused());
+                if(client.player != null) client.player.sendMessage(Localization.getText(music.getAudioPlayer().isPaused() ? "kelutils.music.key.pause" : "kelutils.music.key.play"));
+            }
+            while (loadTrack.wasPressed()){
+                client.setScreen(MusicScreen.buildScreen(client.currentScreen));
+            }
+            while (skipTrack.wasPressed()){
+                music.getTrackManager().nextTrack();
+                if(client.player != null) client.player.sendMessage(Localization.getText("kelutils.music.skip"));
+            }
+            while (volumeMusicUpKey.wasPressed()){
+                int current = UserConfig.CURRENT_MUSIC_VOLUME + UserConfig.SELECT_MUSIC_VOLUME;
+                if(current >= 100) current = 100;
+                UserConfig.CURRENT_MUSIC_VOLUME = current;
+                music.getAudioPlayer().setVolume(current);
+                UserConfig.save();
+            }
+            while (volumeMusicDownKey.wasPressed()){
+                int current = UserConfig.CURRENT_MUSIC_VOLUME - UserConfig.SELECT_MUSIC_VOLUME;
+                if(current <= 1) current = 1;
+                UserConfig.CURRENT_MUSIC_VOLUME = current;
+                music.getAudioPlayer().setVolume(current);
+                UserConfig.save();
+            }
+//            while (geyPorn2023.wasPressed()){
+//                music.getTrackSearch().getTracks("https://yonkagor.bandcamp.com/album/circus-hop");
+//            }
             assert client.player != null;
             while (openConfigKey.wasPressed()) {
                 if(!Main.clothConfig){
@@ -163,8 +228,7 @@ public class Main implements ClientModInitializer {
             client.options.getGamma().setValue(UserConfig.CURRENT_GAMMA_VOLUME);
             client.getTutorialManager().setStep(TutorialStep.NONE);
             try {
-                MinecraftClient.getInstance().getWindow().setIcon(
-                        client.getDefaultResourcePack(), UserConfig.ICON_SNAPSHOT ? Icons.SNAPSHOT : Icons.RELEASE);
+                Window.setIcon(client);
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -195,6 +259,7 @@ public class Main implements ClientModInitializer {
         }
         Bot.start();
     }
+
     public static void updateHUD(){
         try{
             MinecraftClient CLIENT = MinecraftClient.getInstance();

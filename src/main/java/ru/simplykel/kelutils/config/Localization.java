@@ -1,5 +1,6 @@
 package ru.simplykel.kelutils.config;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
@@ -10,6 +11,7 @@ import ru.simplykel.kelutils.info.Audio;
 import ru.simplykel.kelutils.info.Game;
 import ru.simplykel.kelutils.info.Player;
 import ru.simplykel.kelutils.info.World;
+import ru.simplykel.kelutils.lavaplayer.MusicPlayer;
 import ru.simplykel.kelutils.mixin.MinecraftClientAccess;
 
 import java.io.File;
@@ -127,20 +129,6 @@ public class Localization {
         parsedText = parsedText.replace("%version%", CLIENT.getGameVersion());
         parsedText = parsedText.replace("%modded%", ClientBrandRetriever.getClientModName());
         parsedText = parsedText.replace("%version_type%", ("release".equalsIgnoreCase(CLIENT.getVersionType()) ? "" : CLIENT.getVersionType()));
-        if(Main.simplyStatus){
-            if(ru.simplykel.simplystatus.Client.CONNECTED_DISCORD) {
-                parsedText = parsedText.replace("%discord_name%", ru.simplykel.simplystatus.Client.USER.username);
-                parsedText = parsedText.replace("%discord_discriminator%", ru.simplykel.simplystatus.Client.USER.discriminator);
-                parsedText = parsedText.replace("%discord_id%", ru.simplykel.simplystatus.Client.USER.userId);
-                parsedText = parsedText.replace("%discord_tag%", ru.simplykel.simplystatus.Client.USER.username + "#" + ru.simplykel.simplystatus.Client.USER.discriminator);
-
-                // Данные функции связаны с замены discord на siscord
-                parsedText = parsedText.replace("%siscord_name%", ru.simplykel.simplystatus.Client.USER.username);
-                parsedText = parsedText.replace("%siscord_discriminator%", ru.simplykel.simplystatus.Client.USER.discriminator);
-                parsedText = parsedText.replace("%siscord_id%", ru.simplykel.simplystatus.Client.USER.userId);
-                parsedText = parsedText.replace("%siscord_tag%", ru.simplykel.simplystatus.Client.USER.username+"#"+ru.simplykel.simplystatus.Client.USER.discriminator);
-            }
-        }
         parsedText = parsedText.replace("%name%", CLIENT.getSession().getUsername());
         switch (Game.getGameState()){
             case 0 -> parsedText = parsedText.replace("%screen%", "%scene%");
@@ -208,6 +196,36 @@ public class Localization {
         } catch (Exception e) {
 
         }
+        MusicPlayer music = Main.music;
+        parsedText = parsedText.replace("%music%", music.getAudioPlayer().getPlayingTrack() == null ? "" : music.getAudioPlayer().isPaused() ? Localization.getLocalization("music.pause", false) : Localization.getLocalization("music.format", false));
+        if(music.getAudioPlayer().getPlayingTrack() != null) {
+            AudioTrackInfo info = music.getAudioPlayer().getPlayingTrack().getInfo();
+            parsedText = parsedText.replace("%music_author_format%", info.author.equals("Unknown artist") ? "" : Localization.getLocalization("music.format.author", false));
+            parsedText = parsedText.replace("%music_author%", info.author);
+            parsedText = parsedText.replace("%music_title%", info.title);
+            parsedText = parsedText.replace("%music_volume%", String.valueOf(music.getAudioPlayer().getVolume()));
+            if (music.getAudioPlayer().getPlayingTrack().getInfo().isStream) {
+                parsedText = parsedText.replace("%music_time_format%", Localization.getLocalization("music.live", false));
+            } else{
+                parsedText = parsedText.replace("%music_time_format%", Localization.getLocalization("music.time.format", false));
+                parsedText = parsedText.replace("%music_time%", getTimestamp(music.getAudioPlayer().getPlayingTrack().getPosition()));
+                parsedText = parsedText.replace("%music_time_max%", getTimestamp(music.getAudioPlayer().getPlayingTrack().getDuration()));
+            }
+        }
+        if(Main.simplyStatus){
+            parsedText = ru.simplykel.simplystatus.config.Localization.getParsedText(parsedText);
+        }
         return parsedText;
+    }
+    public static String getTimestamp(long milliseconds)
+    {
+        int seconds = (int) (milliseconds / 1000) % 60 ;
+        int minutes = (int) ((milliseconds / (1000 * 60)) % 60);
+        int hours   = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+
+        if (hours > 0)
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        else
+            return String.format("%02d:%02d", minutes, seconds);
     }
 }

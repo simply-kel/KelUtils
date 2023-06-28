@@ -23,8 +23,9 @@ public abstract class GameRendererMixin {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(Bot.takeScreenshotBot){
             Bot.takeScreenshotBot = false;
-            NativeImage img = ScreenshotRecorder.takeScreenshot(MinecraftClient.getInstance().getFramebuffer());
+            NativeImage img = ScreenshotRecorder.takeScreenshot(mc.getFramebuffer());
             Main.handleScreenshotAWT(img);
         }
+
     }
 }

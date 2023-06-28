@@ -18,6 +18,11 @@ public class UserConfig {
     public static boolean GAMMA_ACTIVATED = false;
     public static String DISCORD_TOKEN = "";
     public static boolean DISCORD_USE = false;
+    ///
+    public static int CURRENT_MUSIC_VOLUME = 2;
+    public static int SELECT_MUSIC_VOLUME = 1;
+    public static String LAST_REQUEST_MUSIC = "";
+    public static String YANDEX_MUSIC_TOKEN = "";
 
     /**
      * Сохранение конфигурации
@@ -35,7 +40,11 @@ public class UserConfig {
                 .put("SELECT_SYSTEM_VOLUME", SELECT_SYSTEM_VOLUME)
                 .put("ICON_SNAPSHOT", ICON_SNAPSHOT)
                 .put("DISCORD_TOKEN", DISCORD_TOKEN)
-                .put("DISCORD_USE", DISCORD_USE);
+                .put("DISCORD_USE", DISCORD_USE)
+                .put("SELECT_MUSIC_VOLUME", SELECT_MUSIC_VOLUME)
+                .put("CURRENT_MUSIC_VOLUME", CURRENT_MUSIC_VOLUME)
+                .put("LAST_REQUEST_MUSIC", LAST_REQUEST_MUSIC)
+                .put("YANDEX_MUSIC_TOKEN", YANDEX_MUSIC_TOKEN);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -81,6 +90,18 @@ public class UserConfig {
 
             if(!jsonConfig.isNull("ICON_SNAPSHOT")) ICON_SNAPSHOT = jsonConfig.getBoolean("ICON_SNAPSHOT");
             else ICON_SNAPSHOT = false;
+
+            if(!jsonConfig.isNull("CURRENT_MUSIC_VOLUME")) CURRENT_MUSIC_VOLUME = jsonConfig.getInt("CURRENT_MUSIC_VOLUME");
+            else CURRENT_MUSIC_VOLUME = 2;
+
+            if(!jsonConfig.isNull("SELECT_MUSIC_VOLUME")) SELECT_MUSIC_VOLUME = jsonConfig.getInt("SELECT_MUSIC_VOLUME");
+            else SELECT_MUSIC_VOLUME = 1;
+
+
+            if(!jsonConfig.isNull("LAST_REQUEST_MUSIC")) LAST_REQUEST_MUSIC = jsonConfig.getString("LAST_REQUEST_MUSIC");
+            else LAST_REQUEST_MUSIC = "";
+            if(!jsonConfig.isNull("YANDEX_MUSIC_TOKEN")) YANDEX_MUSIC_TOKEN = jsonConfig.getString("YANDEX_MUSIC_TOKEN");
+            else YANDEX_MUSIC_TOKEN = "";
         } catch (Exception e){
             e.printStackTrace();
             save();

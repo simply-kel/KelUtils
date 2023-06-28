@@ -1,11 +1,32 @@
 {
   "kelutils.name": "KelUtils",
   "kelutils.key.openconfig": "Open configs",
-  "kelutils.key.gamma.uo": "Gamma: +10",
-  "kelutils.key.gamma.down": "Gamma: -10",
+  "kelutils.key.gamma.up": "Gamma up",
+  "kelutils.key.gamma.down": "Gamma down",
   "kelutils.key.volume.up": "Volume up",
   "kelutils.key.volume.down": "Volume down",
   "kelutils.key.gamma.toggle": "Toggle Gamma",
+
+  "kelutils.music": "Music",
+  "kelutils.music.add": "Your request was accepted",
+  "kelutils.music.add.blank": "Request blank",
+  "kelutils.key.music.pause": "Music pause",
+  "kelutils.key.volume.music.up": "Music Volume up",
+  "kelutils.key.volume.music.down": "Music Volume down",
+  "kelutils.key.music.load": "Load track",
+  "kelutils.key.music.skip": "Skip track",
+  "kelutils.music.url": "Track URL",
+  "kelutils.music.url.copy": "Last Track URL",
+  "kelutils.music.key.pause": "Track has been paused",
+  "kelutils.music.key.play": "Track has been resumed",
+  "kelutils.music.skip": "Skipping the track",
+  "kelutils.music.format": "• ♫ %music_author_format% %music_title% %music_time_format% \uD83D\uDD0A %music_volume%%",
+  "kelutils.music.pause": "• ⏸ Pause",
+  "kelutils.music.format.author": "«%music_author%»",
+
+  "kelutils.music.time": "%music_time_format%",
+  "kelutils.music.time.format": "%music_time% / %music_time_max%",
+  "kelutils.music.live": "Live",
 
   "kelutils.message.clothConfigNotFound": "§7KelUtils§r » Install the §7Cloth Config§r mod to display the config window. =-=",
 
@@ -64,6 +85,11 @@
   "kelutils.config.localization.world.nether": "The Nether",
   "kelutils.config.localization.world.overworld": "The Overworld",
   "kelutils.config.localization.world.unknown": "What?",
+
+  "kelutils.config.localization.title.music": "Music",
+  "kelutils.config.localization.music.format": "Music format",
+  "kelutils.config.localization.music.format.author": "Author format",
+  "kelutils.config.localization.music.pause": "Pause",
 
   "kelutils.hud": "%name% %item%• %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 • %date%",
   "kelutils.item": "%item%",
@@ -140,6 +166,16 @@
   "kelutils.bot.info.scene": "> %scene%",
 
   "kelutils.bot.info.title.item": "Item",
-  "kelutils.bot.info.item": "> %item_bot%"
+  "kelutils.bot.info.item": "> %item_bot%",
+
+
+  "kelutils.title": "Minecraft %version% ",
+  "kelutils.title.menu": "- %screen%",
+  "kelutils.title.loading": "- Loading...",
+  "kelutils.title.connect": "- Connecting...",
+  "kelutils.title.disconnect": "- Disconnected",
+  "kelutils.title.singleplayer": "- Singleplayer",
+  "kelutils.title.multiplayer": "- Multiplayer (%address%)",
+  "kelutils.title.replaymod": "- ReplayMod"
 
 }

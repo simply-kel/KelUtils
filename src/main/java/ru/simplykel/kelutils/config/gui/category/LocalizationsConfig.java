@@ -147,7 +147,50 @@ public class LocalizationsConfig {
                 .setDefaultValue(Localization.getLcnDefault("world.unknown"))
                 .setSaveConsumer(newValue -> Localization.setLocalization("world.unknown", newValue))
                 .build());
-
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("kelutils.config.localization.title.music")).build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.music.format"),
+                        Localization.getLocalization("music.format", false))
+                .setDefaultValue(Localization.getLcnDefault("music.format"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("music.format", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.music.format.author"),
+                        Localization.getLocalization("music.format.author", false))
+                .setDefaultValue(Localization.getLcnDefault("music.format.author"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("music.format.author", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.music.pause"),
+                        Localization.getLocalization("music.pause", false))
+                .setDefaultValue(Localization.getLcnDefault("music.pause"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("music.pause", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.music.time"),
+                        Localization.getLocalization("music.time", false))
+                .setDefaultValue(Localization.getLcnDefault("music.time"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("music.time", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.music.time.format"),
+                        Localization.getLocalization("music.time.format", false))
+                .setDefaultValue(Localization.getLcnDefault("music.time.format"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("music.time.format", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.music.live"),
+                        Localization.getLocalization("music.live", false))
+                .setDefaultValue(Localization.getLcnDefault("music.live"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("music.live", newValue))
+                .build());
         return category;
     }
 }

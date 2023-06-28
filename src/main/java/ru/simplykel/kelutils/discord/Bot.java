@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.FileUpload;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -39,7 +40,6 @@ public class Bot {
                 .build();
         jda.awaitReady();
         if(DiscordConfig.REGISTER_COMMANDS) CommandListener.registerCommands();
-
     }
     public static void sendScreenshot(InputStream imageData) throws ExecutionException, InterruptedException {
         if(!DISCORD_CONNECTED) return;

@@ -59,7 +59,21 @@ dependencies {
     implementation shade("net.dv8tion:JDA:5.0.0-beta.11") {
         exclude module: 'opus-java'
         exclude module: "jna"
-    };
+    }
+    implementation shade("com.github.walkyst:lavaplayer-fork:1.4.0")
+    implementation shade("com.github.TopiSenpai.LavaSrc:lavasrc:3.2.4")
+
+    implementation shade( "org.slf4j:slf4j-simple:1.7.36")
+    implementation shade( "org.slf4j:jcl-over-slf4j:1.7.36")
+
+    implementation shade( "org.apache.httpcomponents:httpclient:4.5.14")
+    implementation shade( "org.apache.httpcomponents:httpcore:4.4.16")
+    implementation shade( "commons-codec:commons-codec:1.15")
+    implementation shade( "commons-io:commons-io:2.11.0")
+
+    implementation shade( "com.fasterxml.jackson.core:jackson-databind:2.14.2")
+
+    implementation shade( "org.jsoup:jsoup:1.15.4")
     subprojects.each {
         implementation project(path: ":${it.name}", configuration: 'namedElements')
         implementation project(path: ":${it.name}", configuration: 'shade')

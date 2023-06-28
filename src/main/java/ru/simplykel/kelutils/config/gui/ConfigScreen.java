@@ -3,13 +3,13 @@ package ru.simplykel.kelutils.config.gui;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.Icons;
 import ru.simplykel.kelutils.Main;
 import ru.simplykel.kelutils.config.Localization;
 import ru.simplykel.kelutils.config.ServerConfig;
 import ru.simplykel.kelutils.config.UserConfig;
 import ru.simplykel.kelutils.config.gui.category.*;
 import ru.simplykel.kelutils.discord.Bot;
+import ru.simplykel.kelutils.info.Window;
 
 public class ConfigScreen {
     public static Screen buildScreen (Screen currentScreen) {
@@ -45,7 +45,7 @@ public class ConfigScreen {
         }
         UserConfig.save();
         try{
-            MinecraftClient.getInstance().getWindow().setIcon(MinecraftClient.getInstance().getDefaultResourcePack(), UserConfig.ICON_SNAPSHOT ? Icons.SNAPSHOT : Icons.RELEASE);
+            Window.setIcon(CLIENT);
         } catch (Exception e){
             e.printStackTrace();
         }

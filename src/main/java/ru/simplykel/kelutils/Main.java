@@ -50,6 +50,7 @@ public class Main implements ClientModInitializer {
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
+    public static boolean is120Update = false;
     public static DecimalFormat DF = new DecimalFormat("#.##");
     private static Timer TIMER = new Timer();
     private static String lastException;
@@ -227,6 +228,7 @@ public class Main implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             client.options.getGamma().setValue(UserConfig.CURRENT_GAMMA_VOLUME);
             client.getTutorialManager().setStep(TutorialStep.NONE);
+            is120Update = MinecraftClient.getInstance().getGameVersion().startsWith("1.20");
             try {
                 Window.setIcon(client);
             } catch (Exception e){
@@ -264,7 +266,7 @@ public class Main implements ClientModInitializer {
         try{
             MinecraftClient CLIENT = MinecraftClient.getInstance();
             if(CLIENT.world != null && CLIENT.player != null){
-                CLIENT.player.sendMessage(Localization.toText(Localization.getLocalization("hud", true)), true);
+                if(!CLIENT.player.isSleeping()) CLIENT.player.sendMessage(Localization.toText(Localization.getLocalization("hud", true)), true);
             }
             if(lastException != null) lastException = null;
         } catch (Exception ex){

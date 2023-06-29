@@ -23,5 +23,4 @@ public class StatusListener extends ListenerAdapter {
         Main.LOG.info("[KelUtils] Bot started!");
         Bot.DISCORD_CONNECTED = true;
     }
-
 }

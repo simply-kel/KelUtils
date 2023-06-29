@@ -20,7 +20,7 @@ public class AudioSources {
 //		youtube.setPlaylistPageCount(100);
 		if(UserConfig.YANDEX_MUSIC_TOKEN.isBlank()) Main.LOG.warn("Yandex.Music token is empty, there will be no support");
 		else audioPlayerManager.registerSourceManager(new YandexMusicSourceManager(UserConfig.YANDEX_MUSIC_TOKEN));
-		audioPlayerManager.registerSourceManager(new YoutubeAudioSourceManager());
+		audioPlayerManager.registerSourceManager(new YoutubeAudioSourceManager(false, UserConfig.YOUTUBE_EMAIL, UserConfig.YOUTUBE_PASSWORD));
 		audioPlayerManager.registerSourceManager(SoundCloudAudioSourceManager.createDefault());
 		audioPlayerManager.registerSourceManager(new BandcampAudioSourceManager());
 		audioPlayerManager.registerSourceManager(new VimeoAudioSourceManager());

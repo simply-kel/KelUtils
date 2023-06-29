@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Window {
     public static String lastTitle = "";
     public static void setIcon(MinecraftClient client) throws IOException {
-        if(MinecraftClient.getInstance().getGameVersion().startsWith("1.20")) {
+        if(Main.is120Update) {
             MinecraftClient.getInstance().getWindow().setIcon(
                     client.getDefaultResourcePack(), UserConfig.ICON_SNAPSHOT ? Icons.SNAPSHOT : Icons.RELEASE
             );

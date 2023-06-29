@@ -42,7 +42,7 @@ public class Bot {
         if(DiscordConfig.REGISTER_COMMANDS) CommandListener.registerCommands();
     }
     public static void sendScreenshot(InputStream imageData) throws ExecutionException, InterruptedException {
-        if(!DISCORD_CONNECTED) return;
+//        if(!DISCORD_CONNECTED) return;
         String fileName = Localization.getLocalization("bot.screenshot.file", true)
                 .replace(":", ".")
                 .replace("/", "-")
@@ -62,7 +62,7 @@ public class Bot {
             MinecraftClient.getInstance().player.sendMessage(Localization.getText("kelutils.bot.screenshot.message"), false);
     }
     public static void sendScreenshotDeath(InputStream imageData, Text msg) throws ExecutionException, InterruptedException {
-        if(!DISCORD_CONNECTED) return;
+//        if(!DISCORD_CONNECTED) return;
         String fileName = Localization.getLocalization("bot.screenshot.file", true)
                 .replace(":", ".")
                 .replace("/", "-")

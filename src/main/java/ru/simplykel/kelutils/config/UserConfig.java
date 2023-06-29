@@ -23,6 +23,8 @@ public class UserConfig {
     public static int SELECT_MUSIC_VOLUME = 1;
     public static String LAST_REQUEST_MUSIC = "";
     public static String YANDEX_MUSIC_TOKEN = "";
+    public static String YOUTUBE_EMAIL = "";
+    public static String YOUTUBE_PASSWORD = "";
 
     /**
      * Сохранение конфигурации
@@ -44,7 +46,9 @@ public class UserConfig {
                 .put("SELECT_MUSIC_VOLUME", SELECT_MUSIC_VOLUME)
                 .put("CURRENT_MUSIC_VOLUME", CURRENT_MUSIC_VOLUME)
                 .put("LAST_REQUEST_MUSIC", LAST_REQUEST_MUSIC)
-                .put("YANDEX_MUSIC_TOKEN", YANDEX_MUSIC_TOKEN);
+                .put("YANDEX_MUSIC_TOKEN", YANDEX_MUSIC_TOKEN)
+                .put("YOUTUBE_EMAIL", YOUTUBE_EMAIL)
+                .put("YOUTUBE_PASSWORD", YOUTUBE_PASSWORD);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -102,6 +106,11 @@ public class UserConfig {
             else LAST_REQUEST_MUSIC = "";
             if(!jsonConfig.isNull("YANDEX_MUSIC_TOKEN")) YANDEX_MUSIC_TOKEN = jsonConfig.getString("YANDEX_MUSIC_TOKEN");
             else YANDEX_MUSIC_TOKEN = "";
+
+            if(!jsonConfig.isNull("YOUTUBE_EMAIL")) YOUTUBE_EMAIL = jsonConfig.getString("YOUTUBE_EMAIL");
+            else YOUTUBE_EMAIL = "";
+            if(!jsonConfig.isNull("YOUTUBE_PASSWORD")) YOUTUBE_PASSWORD = jsonConfig.getString("YOUTUBE_PASSWORD");
+            else YOUTUBE_PASSWORD = "";
         } catch (Exception e){
             e.printStackTrace();
             save();

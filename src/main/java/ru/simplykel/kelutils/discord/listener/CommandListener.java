@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 import ru.simplykel.kelutils.Main;
@@ -21,6 +22,8 @@ public class CommandListener extends ListenerAdapter {
         Bot.jda.updateCommands().addCommands(
                 Commands.slash("screenshot", "Take screenshot").setGuildOnly(false),
                 Commands.slash("info", "Get information").setGuildOnly(false),
+                Commands.slash("msg", "Send message/command").setGuildOnly(false)
+                        .addOption(OptionType.STRING, "text", "Message/command", true),
                 Commands.slash("exit", "Exit game").setGuildOnly(false)
         ).queue();
         DiscordConfig.REGISTER_COMMANDS = false;
@@ -40,6 +43,7 @@ public class CommandListener extends ListenerAdapter {
             switch (e.getName()){
                 case "screenshot" -> new Screenshot(e);
                 case "info" -> new Information(e);
+                case "msg" -> new Message(e);
                 case "exit" -> new Exit(e);
             }
         } catch (Exception ex){

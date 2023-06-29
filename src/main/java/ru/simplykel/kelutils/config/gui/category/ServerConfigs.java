@@ -27,6 +27,11 @@ public class ServerConfigs {
                 .setSaveConsumer(newValue -> ServerConfig.SHOW_CUSTOM_NAME = newValue)
                 .build());
         //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("kelutils.config.server.send_chat_to_pm"), ServerConfig.SEND_CHAT_TO_PM)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> ServerConfig.SEND_CHAT_TO_PM = newValue)
+                .build());
+        //
         category.addEntry(entryBuilder.startStrField(Localization.getText("kelutils.config.server.custom_name"), ServerConfig.CUSTOM_NAME)
                 .setDefaultValue("Custom name")
                 .setSaveConsumer(newValue -> ServerConfig.CUSTOM_NAME = newValue)

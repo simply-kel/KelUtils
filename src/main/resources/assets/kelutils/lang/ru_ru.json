@@ -18,7 +18,7 @@
   "kelutils.music.url": "URL Трека",
   "kelutils.music.url.copy": "Посл. URL Трека",
   "kelutils.music.key.pause": "Трек поставлен на паузу",
-  "kelutils.music.key.play": "Трек было возобновлен",
+  "kelutils.music.key.play": "Трек был возобновлен",
   "kelutils.music.skip": "Трек был пропущен",
   "kelutils.music.format": "• ♫ %music_author_format% %music_title% %music_time_format% \uD83D\uDD0A %music_volume%%",
   "kelutils.music.pause": "• ⏸ Пауза",
@@ -167,12 +167,7 @@
   "kelutils.bot.info.item": "> %item_bot%",
 
 
-  "kelutils.title": "Minecraft %version% ",
-  "kelutils.title.menu": "- %screen%",
-  "kelutils.title.loading": "- Загрузка...",
-  "kelutils.title.connect": "- Подключение...",
-  "kelutils.title.disconnect": "- Отключён",
-  "kelutils.title.singleplayer": "- Одиночная игра",
-  "kelutils.title.multiplayer": "- Мультиплеер (%address%)",
-  "kelutils.title.replaymod": "- ReplayMod"
+  "kelutils.bot.message": "Сообщение было отправлено",
+  "kelutils.bot.message.fail": "Я не смогла отправить сообщение, т.к. игрок не в игре",
+  "kelutils.bot.message.command": "Команда была отправлено"
 }

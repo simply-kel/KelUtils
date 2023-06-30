@@ -9,6 +9,7 @@ import java.nio.file.Path;
 
 public class UserConfig {
     public static boolean ENABLE_HUD_INFORMATION = true;
+    public static boolean ENABLE_BOSSBAR_INFORMATION = true;
     public static boolean VIEW_ITEM_OFF_HAND = false;
     public static double NORMAL_GAMMA_VOLUME = 0.5;
     public static double CURRENT_GAMMA_VOLUME = 0.5;
@@ -34,6 +35,7 @@ public class UserConfig {
         final Path configFile = mc.runDirectory.toPath().resolve("KelUtils/config.json");
         JSONObject jsonConfig = new JSONObject();
         jsonConfig.put("ENABLE_HUD_INFORMATION", ENABLE_HUD_INFORMATION)
+                .put("ENABLE_BOSSBAR_INFORMATION", ENABLE_BOSSBAR_INFORMATION)
                 .put("VIEW_ITEM_OFF_HAND", VIEW_ITEM_OFF_HAND)
                 .put("CURRENT_GAMMA_VOLUME", CURRENT_GAMMA_VOLUME)
                 .put("NORMAL_GAMMA_VOLUME", NORMAL_GAMMA_VOLUME)
@@ -67,6 +69,8 @@ public class UserConfig {
             JSONObject jsonConfig = new JSONObject(Files.readString(configFile));
             if(!jsonConfig.isNull("ENABLE_HUD_INFORMATION")) ENABLE_HUD_INFORMATION = jsonConfig.getBoolean("ENABLE_HUD_INFORMATION");
             else ENABLE_HUD_INFORMATION = true;
+            if(!jsonConfig.isNull("ENABLE_BOSSBAR_INFORMATION")) ENABLE_BOSSBAR_INFORMATION = jsonConfig.getBoolean("ENABLE_BOSSBAR_INFORMATION");
+            else ENABLE_BOSSBAR_INFORMATION = true;
 
             if(!jsonConfig.isNull("VIEW_ITEM_OFF_HAND")) VIEW_ITEM_OFF_HAND = jsonConfig.getBoolean("VIEW_ITEM_OFF_HAND");
             else VIEW_ITEM_OFF_HAND = false;

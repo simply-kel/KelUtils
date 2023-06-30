@@ -9,6 +9,7 @@
   ],
   "client": [
     "ChatHudMixin",
+    "BossBarHudMixin",
     "ScreenshotMixinAWT",
     "NativeImagePointerAccessor",
     "MixinSimpleOption",

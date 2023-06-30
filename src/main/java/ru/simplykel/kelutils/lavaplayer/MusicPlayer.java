@@ -8,6 +8,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration.ResamplingQual
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import ru.simplykel.kelutils.config.UserConfig;
 import ru.simplykel.kelutils.lavaplayer.api.output.IOutputConsumer;
 import ru.simplykel.kelutils.lavaplayer.output.AudioOutput;
 import ru.simplykel.kelutils.lavaplayer.search.TrackSearch;
@@ -33,7 +34,7 @@ public class MusicPlayer {
 
 		trackManager = new TrackScheduler(audioPlayer);
 		trackSearch = new TrackSearch(audioPlayerManager, audioPlayer, trackManager);
-		audioPlayer.setVolume(2);
+		audioPlayer.setVolume(UserConfig.CURRENT_MUSIC_VOLUME);
 		setup();
 	}
 	

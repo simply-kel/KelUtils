@@ -15,10 +15,17 @@
   "kelutils.key.volume.music.down": "Music Volume down",
   "kelutils.key.music.load": "Load track",
   "kelutils.key.music.skip": "Skip track",
+  "kelutils.key.music.reset": "Reset queue",
+  "kelutils.key.music.shuffle": "Shuffle queue",
+  "kelutils.key.music.repeating": "Repeating track",
   "kelutils.music.url": "Track URL",
   "kelutils.music.url.copy": "Last Track URL",
   "kelutils.music.key.pause": "Track has been paused",
   "kelutils.music.key.play": "Track has been resumed",
+  "kelutils.music.key.reset": "The queue was reset.",
+  "kelutils.music.key.shuffle": "The queue is shuffled.",
+  "kelutils.music.key.repeat": "Repeat on",
+  "kelutils.music.key.repeat.no": "Repeat off",
   "kelutils.music.skip": "Skipping the track",
   "kelutils.music.format": "• ♫ %music_author_format% %music_title% %music_time_format% \uD83D\uDD0A %music_volume%%",
   "kelutils.music.pause": "• ⏸ Pause",
@@ -34,6 +41,7 @@
 
   "kelutils.config.title.functions": "Functions",
   "kelutils.config.client.enable_hud_information": "Enable HUD Information",
+  "kelutils.config.client.enable_bossbar_information": "Enable Boss Bar Information",
   "kelutils.config.client.discord_use": "Enable Discord Bot",
 
   "kelutils.config.title.gamma": "Gamma",
@@ -90,6 +98,12 @@
   "kelutils.config.localization.music.format": "Music format",
   "kelutils.config.localization.music.format.author": "Author format",
   "kelutils.config.localization.music.pause": "Pause",
+
+  "kelutils.config.localization.title.bossbar": "Boss Bar",
+  "kelutils.config.localization.bossbar.music": "Music format",
+  "kelutils.config.localization.bossbar.music.live": "Live",
+  "kelutils.config.localization.bossbar.music.pause": "Pause",
+  "kelutils.config.localization.bossbar": "Information",
 
   "kelutils.hud": "%name% %item%• %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 • %date%",
   "kelutils.item": "%item%",
@@ -171,5 +185,10 @@
 
   "kelutils.bot.message": "A message was sent",
   "kelutils.bot.message.fail": "I could not send a message, the player is not in the game.",
-  "kelutils.bot.message.command": "The command was send"
+  "kelutils.bot.message.command": "The command was send",
+
+  "kelutils.bossbar.music": "♫ %music_author_format% %music_title% %music_time_format%",
+  "kelutils.bossbar.music.live": "♫ %music_author_format% %music_title%",
+  "kelutils.bossbar.music.pause": "⏸ Pause",
+  "kelutils.bossbar": "%health_percent%❤ • %armor%⛊ • %fps%"
 }

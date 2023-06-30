@@ -6,12 +6,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.hud.BossBarHud;
+import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.tutorial.TutorialStep;
 import net.minecraft.client.util.Icons;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryUtil;
@@ -28,6 +32,7 @@ import ru.simplykel.kelutils.info.Window;
 import ru.simplykel.kelutils.lavaplayer.MusicManager;
 import ru.simplykel.kelutils.lavaplayer.MusicPlayer;
 import ru.simplykel.kelutils.lavaplayer.MusicScreen;
+import ru.simplykel.kelutils.mixin.BossBarHudMixin;
 import ru.simplykel.kelutils.mixin.NativeImagePointerAccessor;
 
 import javax.imageio.ImageIO;
@@ -42,6 +47,7 @@ import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class Main implements ClientModInitializer {
@@ -50,10 +56,12 @@ public class Main implements ClientModInitializer {
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
+    public static UUID bossBarUUID = UUID.randomUUID();
     public static boolean is120Update = false;
     public static DecimalFormat DF = new DecimalFormat("#.##");
     private static Timer TIMER = new Timer();
     private static String lastException;
+    private static boolean lastBossBar = true;
     public static MusicPlayer music;
     @Override
     public void onInitializeClient() {
@@ -93,21 +101,15 @@ public class Main implements ClientModInitializer {
         KeyBinding volumeUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.up",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_RIGHT, // The keycode of the key
+                GLFW.GLFW_NO_API, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding volumeDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.down",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_LEFT, // The keycode of the key
+                GLFW.GLFW_NO_API, // The keycode of the key
                 "kelutils.name"
         ));
-//        KeyBinding geyPorn2023 = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-//                "kelutils.key.geyPorn2023",
-//                InputUtil.Type.KEYSYM,
-//                GLFW.GLFW_KEY_X, // The keycode of the key
-//                "kelutils.name"
-//        ));
         KeyBinding playOrPause = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.music.pause",
                 InputUtil.Type.KEYSYM,
@@ -123,19 +125,37 @@ public class Main implements ClientModInitializer {
         KeyBinding skipTrack = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.music.skip",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_PLATFORM_NULL, // The keycode of the key
+                GLFW.GLFW_NO_API, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding volumeMusicUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.music.up",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_PLATFORM_NULL, // The keycode of the key
+                GLFW.GLFW_KEY_RIGHT, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding volumeMusicDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.music.down",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_PLATFORM_NULL, // The keycode of the key
+                GLFW.GLFW_KEY_LEFT, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding resetQueueKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.volume.music.reset",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_R, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding shuffleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.volume.music.shuffle",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_Z, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding repeatingKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.music.repeating",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_NO_API, // The keycode of the key
                 "kelutils.name"
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -143,6 +163,18 @@ public class Main implements ClientModInitializer {
             while (playOrPause.wasPressed()){
                 music.getAudioPlayer().setPaused(!music.getAudioPlayer().isPaused());
                 if(client.player != null) client.player.sendMessage(Localization.getText(music.getAudioPlayer().isPaused() ? "kelutils.music.key.pause" : "kelutils.music.key.play"));
+            }
+            while (repeatingKey.wasPressed()){
+                music.getTrackManager().setRepeating(!music.getTrackManager().isRepeating());
+                if(client.player != null) client.player.sendMessage(Localization.getText(music.getTrackManager().isRepeating() ? "kelutils.music.key.repeat" : "kelutils.music.key.repeat.no"));
+            }
+            while (resetQueueKey.wasPressed()){
+                music.getTrackManager().queue.clear();
+                if(client.player != null) client.player.sendMessage(Localization.getText("kelutils.music.key.reset"));
+            }
+            while (shuffleKey.wasPressed()){
+                music.getTrackManager().shuffle();
+                if(client.player != null) client.player.sendMessage(Localization.getText("kelutils.music.key.shuffle"));
             }
             while (loadTrack.wasPressed()){
                 client.setScreen(MusicScreen.buildScreen(client.currentScreen));
@@ -165,9 +197,6 @@ public class Main implements ClientModInitializer {
                 music.getAudioPlayer().setVolume(current);
                 UserConfig.save();
             }
-//            while (geyPorn2023.wasPressed()){
-//                music.getTrackSearch().getTracks("https://yonkagor.bandcamp.com/album/circus-hop");
-//            }
             assert client.player != null;
             while (openConfigKey.wasPressed()) {
                 if(!Main.clothConfig){
@@ -250,6 +279,8 @@ public class Main implements ClientModInitializer {
             @Override
             public void run() {
                 if(UserConfig.ENABLE_HUD_INFORMATION) updateHUD();
+                if(UserConfig.ENABLE_BOSSBAR_INFORMATION) updateBossBar();
+                else if(lastBossBar) clearBossBar();
             }
         }, 250, 250);
     }
@@ -267,6 +298,58 @@ public class Main implements ClientModInitializer {
             MinecraftClient CLIENT = MinecraftClient.getInstance();
             if(CLIENT.world != null && CLIENT.player != null){
                 if(!CLIENT.player.isSleeping()) CLIENT.player.sendMessage(Localization.toText(Localization.getLocalization("hud", true)), true);
+            }
+            if(lastException != null) lastException = null;
+        } catch (Exception ex){
+            if(lastException == null || !lastException.equals(ex.getMessage())){
+                ex.printStackTrace();
+                lastException = ex.getMessage();
+            }
+        }
+    }
+    public static ClientBossBar bossBar;
+    public static void updateBossBar(){
+        if(!lastBossBar) lastBossBar = true;
+        try{
+            MinecraftClient client = MinecraftClient.getInstance();
+            if(client.world != null && client.player != null) {
+                if(Main.music.getAudioPlayer().getPlayingTrack() != null){
+                    if(Main.music.getAudioPlayer().isPaused()){
+                        bossBar = new ClientBossBar(Main.bossBarUUID, Localization.toText(Localization.getLocalization("bossbar.music.pause", true)), 1F
+                                , BossBar.Color.YELLOW, BossBar.Style.PROGRESS,false, false, false);
+                    } else {
+                        if(Main.music.getAudioPlayer().getPlayingTrack().getInfo().isStream)
+                            bossBar = new ClientBossBar(Main.bossBarUUID, Localization.toText(Localization.getLocalization("bossbar.music.live", true)), (
+                                    1F
+                            ), BossBar.Color.RED, BossBar.Style.PROGRESS,false, false, false);
+                        else bossBar = new ClientBossBar(Main.bossBarUUID, Localization.toText(Localization.getLocalization("bossbar.music", true)), (
+                                (float) Main.music.getAudioPlayer().getPlayingTrack().getPosition()/Main.music.getAudioPlayer().getPlayingTrack().getDuration()
+                        ), BossBar.Color.GREEN, BossBar.Style.PROGRESS,false, false, false);
+                    }
+                } else {
+                    float fps = (float) MinecraftClient.getInstance().getCurrentFps() / MinecraftClient.getInstance().options.getMaxFps().getValue();
+                    if(fps > 1f) fps = 1f;
+                    BossBar.Color color = fps <= 0.25f ? BossBar.Color.RED : fps <= 0.75f ? BossBar.Color.YELLOW : BossBar.Color.GREEN;
+                    bossBar = new ClientBossBar(Main.bossBarUUID, Localization.toText(Localization.getLocalization("bossbar", true)), (
+                            fps
+                    ), color, BossBar.Style.PROGRESS,false, false, false);
+                }
+                client.inGameHud.getBossBarHud().handlePacket(BossBarS2CPacket.add(bossBar));
+            }
+            if(lastException != null) lastException = null;
+        } catch (Exception ex){
+            if(lastException == null || !lastException.equals(ex.getMessage())){
+                ex.printStackTrace();
+                lastException = ex.getMessage();
+            }
+        }
+    }
+    public static void clearBossBar(){
+        try{
+            if(lastBossBar) lastBossBar = false;
+            MinecraftClient client = MinecraftClient.getInstance();
+            if(client.world != null && client.player != null) {
+                client.inGameHud.getBossBarHud().handlePacket(BossBarS2CPacket.remove(bossBarUUID));
             }
             if(lastException != null) lastException = null;
         } catch (Exception ex){

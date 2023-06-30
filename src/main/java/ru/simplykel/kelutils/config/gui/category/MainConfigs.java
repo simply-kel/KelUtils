@@ -19,6 +19,11 @@ public class MainConfigs {
                 .setSaveConsumer(newValue -> UserConfig.ENABLE_HUD_INFORMATION = newValue)
                 .build());
         //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("kelutils.config.client.enable_bossbar_information"), UserConfig.ENABLE_BOSSBAR_INFORMATION)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.ENABLE_BOSSBAR_INFORMATION = newValue)
+                .build());
+        //
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("kelutils.config.client.discord_use"), UserConfig.DISCORD_USE)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.DISCORD_USE = newValue)

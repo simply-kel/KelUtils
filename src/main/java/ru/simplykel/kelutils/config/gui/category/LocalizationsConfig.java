@@ -191,6 +191,38 @@ public class LocalizationsConfig {
                 .setDefaultValue(Localization.getLcnDefault("music.live"))
                 .setSaveConsumer(newValue -> Localization.setLocalization("music.live", newValue))
                 .build());
+
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("kelutils.config.localization.title.bossbar")).build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.bossbar"),
+                        Localization.getLocalization("bossbar", false))
+                .setDefaultValue(Localization.getLcnDefault("bossbar"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("bossbar", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.bossbar.music"),
+                        Localization.getLocalization("bossbar.music", false))
+                .setDefaultValue(Localization.getLcnDefault("bossbar.music"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("bossbar.music", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.bossbar.music.pause"),
+                        Localization.getLocalization("bossbar.music.pause", false))
+                .setDefaultValue(Localization.getLcnDefault("bossbar.music.pause"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("bossbar.music.pause", newValue))
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("kelutils.config.localization.bossbar.music.live"),
+                        Localization.getLocalization("bossbar.music.live", false))
+                .setDefaultValue(Localization.getLcnDefault("bossbar.music.live"))
+                .setSaveConsumer(newValue -> Localization.setLocalization("bossbar.music.live", newValue))
+                .build());
+
         return category;
     }
 }

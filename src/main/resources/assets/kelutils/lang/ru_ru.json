@@ -15,6 +15,7 @@
   "kelutils.key.volume.music.down": "Убавить громкость музыки",
   "kelutils.key.music.load": "Загрузить трек",
   "kelutils.key.music.skip": "Пропустить трек",
+  "kelutils.key.music.repeating": "Повтор трека",
   "kelutils.music.url": "URL Трека",
   "kelutils.music.url.copy": "Посл. URL Трека",
   "kelutils.music.key.pause": "Трек поставлен на паузу",
@@ -23,6 +24,12 @@
   "kelutils.music.format": "• ♫ %music_author_format% %music_title% %music_time_format% \uD83D\uDD0A %music_volume%%",
   "kelutils.music.pause": "• ⏸ Пауза",
   "kelutils.music.format.author": "«%music_author%»",
+  "kelutils.music.key.reset": "Очередь была сброшена",
+  "kelutils.music.key.shuffle": "Очередь была перемешена.",
+  "kelutils.key.music.reset": "Сброосить очередь",
+  "kelutils.key.music.shuffle": "Перемешать очередь",
+  "kelutils.music.key.repeat": "Повтор включён",
+  "kelutils.music.key.repeat.no": "Повтор отключён",
 
   "kelutils.music.time": "%music_time_format%",
   "kelutils.music.time.format": "(%music_time% / %music_time_max%)",
@@ -34,6 +41,7 @@
 
   "kelutils.config.title.functions": "Функции",
   "kelutils.config.client.enable_hud_information": "Включить HUD Информацию",
+  "kelutils.config.client.enable_bossbar_information": "Включить босс бар",
   "kelutils.config.client.discord_use": "Включить дискорд бота",
 
   "kelutils.config.title.gamma": "Гамма",
@@ -88,6 +96,12 @@
   "kelutils.config.localization.music.format": "Формат музыки",
   "kelutils.config.localization.music.format.author": "Формат автора",
   "kelutils.config.localization.music.pause": "Пауза",
+
+  "kelutils.config.localization.title.bossbar": "Босс бар",
+  "kelutils.config.localization.bossbar.music": "Формат музыки",
+  "kelutils.config.localization.bossbar.music.live": "Эфир",
+  "kelutils.config.localization.bossbar.music.pause": "Пауза",
+  "kelutils.config.localization.bossbar": "Информация",
 
   "kelutils.hud": "%name% %item%• %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 • %date%",
   "kelutils.item": "%item%",
@@ -169,5 +183,10 @@
 
   "kelutils.bot.message": "Сообщение было отправлено",
   "kelutils.bot.message.fail": "Я не смогла отправить сообщение, т.к. игрок не в игре",
-  "kelutils.bot.message.command": "Команда была отправлено"
+  "kelutils.bot.message.command": "Команда была отправлено",
+
+  "kelutils.bossbar.music": "♫ %music_author_format% %music_title% %music_time_format%",
+  "kelutils.bossbar.music.live": "♫ %music_author_format% %music_title%",
+  "kelutils.bossbar.music.pause": "⏸ Пауза",
+  "kelutils.bossbar": "%health_percent%❤ • %armor%⛊ • %fps%"
 }

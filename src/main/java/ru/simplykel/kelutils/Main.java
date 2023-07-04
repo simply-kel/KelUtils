@@ -1,6 +1,5 @@
 package ru.simplykel.kelutils;
 
-import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -11,6 +10,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.option.ControlsOptionsScreen;
+import net.minecraft.client.gui.screen.option.KeybindsScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.tutorial.TutorialStep;
@@ -56,7 +57,6 @@ import java.util.concurrent.ExecutionException;
 import static com.mojang.brigadier.arguments.StringArgumentType.getString;
 import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
 public class Main implements ClientModInitializer {
     public static final Logger LOG = LogManager.getLogger("KelUtils");
@@ -67,7 +67,7 @@ public class Main implements ClientModInitializer {
     public static UUID bossBarUUID = UUID.randomUUID();
     public static boolean is120Update = false;
     public static DecimalFormat DF = new DecimalFormat("#.##");
-    private static Timer TIMER = new Timer();
+    private static final Timer TIMER = new Timer();
     private static String lastException;
     private static boolean lastBossBar = true;
     public static MusicPlayer music;
@@ -109,13 +109,13 @@ public class Main implements ClientModInitializer {
         KeyBinding volumeUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.up",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_NO_API, // The keycode of the key
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding volumeDownKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.down",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_NO_API, // The keycode of the key
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding playOrPause = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -127,13 +127,13 @@ public class Main implements ClientModInitializer {
         KeyBinding loadTrack = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.music.load",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_L, // The keycode of the key
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding skipTrack = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.music.skip",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_NO_API, // The keycode of the key
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding volumeMusicUpKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -151,7 +151,7 @@ public class Main implements ClientModInitializer {
         KeyBinding resetQueueKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.volume.music.reset",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_R, // The keycode of the key
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding shuffleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -163,7 +163,7 @@ public class Main implements ClientModInitializer {
         KeyBinding repeatingKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "kelutils.key.music.repeating",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_NO_API, // The keycode of the key
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding swapItemKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -171,12 +171,6 @@ public class Main implements ClientModInitializer {
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_R, // The keycode of the key
                 "kelutils.name"
-        ));
-        KeyBinding plKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "kelutils.key.music.plKey",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_X, // The keycode of the key
-                "kelutils.name.dev"
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             UserConfig.load();
@@ -229,15 +223,6 @@ public class Main implements ClientModInitializer {
             }
             while (swapItemKey.wasPressed()){
                 Player.swapItem(client);
-            }
-            while (plKey.wasPressed()) {
-                if(!Main.clothConfig){
-                    client.player.sendMessage(Localization.getText(("kelutils.message.clothConfigNotFound")), false);
-                    return;
-                }
-                final Screen current = client.currentScreen;
-                Screen configScreen = new PlaylistScreen().buildScreen(current, "gayporn");
-                client.setScreen(configScreen);
             }
             while (gammaUpKey.wasPressed()) {
                 double current = UserConfig.CURRENT_GAMMA_VOLUME + 0.1;
@@ -389,44 +374,49 @@ public class Main implements ClientModInitializer {
                 } else {
                     float percent = 1F;
                     BossBar.Color color = BossBar.Color.BLUE;
-                    if(UserConfig.BOSSBAR_TYPE.equals("fps")){
-                        percent = (float) client.getCurrentFps() / client.options.getMaxFps().getValue();
-                        if(percent > 1f) percent = 1f;
-                        color = percent <= 0.25f ? BossBar.Color.RED : percent <= 0.75f ? BossBar.Color.YELLOW : BossBar.Color.GREEN;
-                    } else if(UserConfig.BOSSBAR_TYPE.equals("health")){
-                        percent = (float) client.player.getHealth() / client.player.getMaxHealth();
-                        if(percent > 1f) percent = 1f;
-                        color = BossBar.Color.RED;
-                    } else if(UserConfig.BOSSBAR_TYPE.equals("world_time")){
-                        long currentTime = client.world.getLunarTime() % 24000;
-                        percent = (float) currentTime / 24000;
-                        if(percent > 1f) percent = 1f;
-                        if (currentTime < 6000 && currentTime > 0) {
-                            color = BossBar.Color.YELLOW;
-                        } else if (currentTime < 12000 && currentTime > 6000) {
-                            color = BossBar.Color.GREEN;
-                        } else if (currentTime < 16500 && currentTime > 12000) {
-                            color = BossBar.Color.YELLOW;
-                        } else if (currentTime > 16500) {
-                            color = BossBar.Color.RED;
-                        } else {
-                            color = BossBar.Color.WHITE;
+                    switch (UserConfig.BOSSBAR_TYPE) {
+                        case "fps" -> {
+                            percent = (float) client.getCurrentFps() / client.options.getMaxFps().getValue();
+                            if (percent > 1f) percent = 1f;
+                            color = percent <= 0.25f ? BossBar.Color.RED : percent <= 0.75f ? BossBar.Color.YELLOW : BossBar.Color.GREEN;
                         }
-                    } else if(UserConfig.BOSSBAR_TYPE.equals("real_time")){
-                        DateFormat dateFormat = new SimpleDateFormat("HH");
-                        long currentTime = Long.parseLong(dateFormat.format(System.currentTimeMillis()));
-                        percent = (float) currentTime / 24;
-                        if(percent > 1f) percent = 1f;
-                        if (currentTime < 11 && currentTime > 0) {
-                            color = BossBar.Color.YELLOW;
-                        } else if (currentTime < 17 && currentTime > 11) {
-                            color = BossBar.Color.GREEN;
-                        } else if (currentTime < 22 && currentTime > 17) {
-                            color = BossBar.Color.YELLOW;
-                        } else if (currentTime > 22) {
+                        case "health" -> {
+                            percent = (float) client.player.getHealth() / client.player.getMaxHealth();
+                            if (percent > 1f) percent = 1f;
                             color = BossBar.Color.RED;
-                        } else {
-                            color = BossBar.Color.WHITE;
+                        }
+                        case "world_time" -> {
+                            long currentTime = client.world.getLunarTime() % 24000;
+                            percent = (float) currentTime / 24000;
+                            if (percent > 1f) percent = 1f;
+                            if (currentTime < 6000 && currentTime > 0) {
+                                color = BossBar.Color.YELLOW;
+                            } else if (currentTime < 12000 && currentTime > 6000) {
+                                color = BossBar.Color.GREEN;
+                            } else if (currentTime < 16500 && currentTime > 12000) {
+                                color = BossBar.Color.YELLOW;
+                            } else if (currentTime > 16500) {
+                                color = BossBar.Color.RED;
+                            } else {
+                                color = BossBar.Color.WHITE;
+                            }
+                        }
+                        case "real_time" -> {
+                            DateFormat dateFormat = new SimpleDateFormat("HH");
+                            long currentTime = Long.parseLong(dateFormat.format(System.currentTimeMillis()));
+                            percent = (float) currentTime / 24;
+                            if (percent > 1f) percent = 1f;
+                            if (currentTime < 11 && currentTime > 0) {
+                                color = BossBar.Color.YELLOW;
+                            } else if (currentTime < 17 && currentTime > 11) {
+                                color = BossBar.Color.GREEN;
+                            } else if (currentTime < 22 && currentTime > 17) {
+                                color = BossBar.Color.YELLOW;
+                            } else if (currentTime > 22) {
+                                color = BossBar.Color.RED;
+                            } else {
+                                color = BossBar.Color.WHITE;
+                            }
                         }
                     }
                     bossBar = new ClientBossBar(Main.bossBarUUID, Localization.toText(Localization.getLocalization("bossbar", true)), (

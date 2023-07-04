@@ -1,18 +1,19 @@
 package ru.simplykel.kelutils;
 
+import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.tutorial.TutorialStep;
-import net.minecraft.client.util.Icons;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;
@@ -25,15 +26,15 @@ import ru.simplykel.kelutils.config.UserConfig;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.simplykel.kelutils.config.gui.ConfigScreen;
+import ru.simplykel.kelutils.info.Player;
+import ru.simplykel.kelutils.screens.ConfigScreen;
 import ru.simplykel.kelutils.discord.Bot;
 import ru.simplykel.kelutils.info.Audio;
 import ru.simplykel.kelutils.info.Window;
-import ru.simplykel.kelutils.lavaplayer.MusicManager;
 import ru.simplykel.kelutils.lavaplayer.MusicPlayer;
-import ru.simplykel.kelutils.lavaplayer.MusicScreen;
-import ru.simplykel.kelutils.mixin.BossBarHudMixin;
+import ru.simplykel.kelutils.screens.MusicScreen;
 import ru.simplykel.kelutils.mixin.NativeImagePointerAccessor;
+import ru.simplykel.kelutils.screens.PlaylistScreen;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -44,11 +45,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+
+import static com.mojang.brigadier.arguments.StringArgumentType.getString;
+import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
 public class Main implements ClientModInitializer {
     public static final Logger LOG = LogManager.getLogger("KelUtils");
@@ -158,6 +166,18 @@ public class Main implements ClientModInitializer {
                 GLFW.GLFW_NO_API, // The keycode of the key
                 "kelutils.name"
         ));
+        KeyBinding swapItemKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.swap",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_R, // The keycode of the key
+                "kelutils.name"
+        ));
+        KeyBinding plKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "kelutils.key.music.plKey",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_X, // The keycode of the key
+                "kelutils.name.dev"
+        ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             UserConfig.load();
             while (playOrPause.wasPressed()){
@@ -205,6 +225,18 @@ public class Main implements ClientModInitializer {
                 }
                 final Screen current = client.currentScreen;
                 Screen configScreen = ConfigScreen.buildScreen(current);
+                client.setScreen(configScreen);
+            }
+            while (swapItemKey.wasPressed()){
+                Player.swapItem(client);
+            }
+            while (plKey.wasPressed()) {
+                if(!Main.clothConfig){
+                    client.player.sendMessage(Localization.getText(("kelutils.message.clothConfigNotFound")), false);
+                    return;
+                }
+                final Screen current = client.currentScreen;
+                Screen configScreen = new PlaylistScreen().buildScreen(current, "gayporn");
                 client.setScreen(configScreen);
             }
             while (gammaUpKey.wasPressed()) {
@@ -272,6 +304,25 @@ public class Main implements ClientModInitializer {
                 }
             }
         });
+
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) ->
+                dispatcher.register(ClientCommandManager.literal("playlist")
+                                .then(
+                                        argument("name", greedyString()).executes(context -> {
+                                            if(!Main.clothConfig){
+                                                context.getSource().getPlayer().sendMessage(Localization.getText(("kelutils.message.clothConfigNotFound")), false);
+                                            } else {
+                                                final Screen current = MinecraftClient.getInstance().currentScreen;
+                                                Screen configScreen = new PlaylistScreen().buildScreen(current, getString(context, "name"));
+//                                                MinecraftClient.getInstance().execute(() -> MinecraftClient.getInstance().setScreen(configScreen));
+                                                MinecraftClient client = context.getSource().getClient();
+                                                client.send(() -> client.setScreen(configScreen));
+                                            }
+                                            return 1;
+                                        })
+                                )
+                ));
     }
     // STARTING FUNCTIONS
     public static void start(){
@@ -308,8 +359,16 @@ public class Main implements ClientModInitializer {
         }
     }
     public static ClientBossBar bossBar;
+    public static String[] bossBarTypes = {
+            "fps",
+            "health",
+            "world_time",
+            "real_time",
+            "hide"
+    };
     public static void updateBossBar(){
         if(!lastBossBar) lastBossBar = true;
+        boolean music = false;
         try{
             MinecraftClient client = MinecraftClient.getInstance();
             if(client.world != null && client.player != null) {
@@ -326,15 +385,56 @@ public class Main implements ClientModInitializer {
                                 (float) Main.music.getAudioPlayer().getPlayingTrack().getPosition()/Main.music.getAudioPlayer().getPlayingTrack().getDuration()
                         ), BossBar.Color.GREEN, BossBar.Style.PROGRESS,false, false, false);
                     }
+                    music = true;
                 } else {
-                    float fps = (float) MinecraftClient.getInstance().getCurrentFps() / MinecraftClient.getInstance().options.getMaxFps().getValue();
-                    if(fps > 1f) fps = 1f;
-                    BossBar.Color color = fps <= 0.25f ? BossBar.Color.RED : fps <= 0.75f ? BossBar.Color.YELLOW : BossBar.Color.GREEN;
+                    float percent = 1F;
+                    BossBar.Color color = BossBar.Color.BLUE;
+                    if(UserConfig.BOSSBAR_TYPE.equals("fps")){
+                        percent = (float) client.getCurrentFps() / client.options.getMaxFps().getValue();
+                        if(percent > 1f) percent = 1f;
+                        color = percent <= 0.25f ? BossBar.Color.RED : percent <= 0.75f ? BossBar.Color.YELLOW : BossBar.Color.GREEN;
+                    } else if(UserConfig.BOSSBAR_TYPE.equals("health")){
+                        percent = (float) client.player.getHealth() / client.player.getMaxHealth();
+                        if(percent > 1f) percent = 1f;
+                        color = BossBar.Color.RED;
+                    } else if(UserConfig.BOSSBAR_TYPE.equals("world_time")){
+                        long currentTime = client.world.getLunarTime() % 24000;
+                        percent = (float) currentTime / 24000;
+                        if(percent > 1f) percent = 1f;
+                        if (currentTime < 6000 && currentTime > 0) {
+                            color = BossBar.Color.YELLOW;
+                        } else if (currentTime < 12000 && currentTime > 6000) {
+                            color = BossBar.Color.GREEN;
+                        } else if (currentTime < 16500 && currentTime > 12000) {
+                            color = BossBar.Color.YELLOW;
+                        } else if (currentTime > 16500) {
+                            color = BossBar.Color.RED;
+                        } else {
+                            color = BossBar.Color.WHITE;
+                        }
+                    } else if(UserConfig.BOSSBAR_TYPE.equals("real_time")){
+                        DateFormat dateFormat = new SimpleDateFormat("HH");
+                        long currentTime = Long.parseLong(dateFormat.format(System.currentTimeMillis()));
+                        percent = (float) currentTime / 24;
+                        if(percent > 1f) percent = 1f;
+                        if (currentTime < 11 && currentTime > 0) {
+                            color = BossBar.Color.YELLOW;
+                        } else if (currentTime < 17 && currentTime > 11) {
+                            color = BossBar.Color.GREEN;
+                        } else if (currentTime < 22 && currentTime > 17) {
+                            color = BossBar.Color.YELLOW;
+                        } else if (currentTime > 22) {
+                            color = BossBar.Color.RED;
+                        } else {
+                            color = BossBar.Color.WHITE;
+                        }
+                    }
                     bossBar = new ClientBossBar(Main.bossBarUUID, Localization.toText(Localization.getLocalization("bossbar", true)), (
-                            fps
+                            percent
                     ), color, BossBar.Style.PROGRESS,false, false, false);
                 }
-                client.inGameHud.getBossBarHud().handlePacket(BossBarS2CPacket.add(bossBar));
+                if(UserConfig.BOSSBAR_TYPE.equals("hide") && !music) client.inGameHud.getBossBarHud().handlePacket(BossBarS2CPacket.remove(bossBarUUID));
+                else client.inGameHud.getBossBarHud().handlePacket(BossBarS2CPacket.add(bossBar));
             }
             if(lastException != null) lastException = null;
         } catch (Exception ex){
@@ -419,6 +519,71 @@ public class Main implements ClientModInitializer {
                 ImageIO.write(bufImg, "png", os);
                 InputStream is = new ByteArrayInputStream(os.toByteArray());
                 Bot.sendScreenshot(is);
+            } catch (IOException | ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }, "KelUtils").start();
+    }
+    // SCREENSHOT
+    public static void handleScreenshotAWTInv(NativeImage img) {
+        if (MinecraftClient.IS_SYSTEM_MAC) {
+            return;
+        }
+
+        // Only allow RGBA
+        if (img.getFormat() != NativeImage.Format.RGBA) {
+            LOG.warn("Failed to capture screenshot: wrong format");
+            return;
+        }
+
+        // IntellIJ doesn't like this
+        //noinspection ConstantConditions
+        long imagePointer = ((NativeImagePointerAccessor) (Object) img).getPointer();
+        ByteBuffer buf = MemoryUtil.memByteBufferSafe(imagePointer, img.getWidth() * img.getHeight() * 4);
+        if (buf == null) {
+            throw new RuntimeException("Invalid image");
+        }
+
+        handleScreenshotAWTInv(buf, img.getWidth(), img.getHeight(), 4);
+    }
+
+    public static void handleScreenshotAWTInv(ByteBuffer byteBuffer, int width, int height, int components) {
+        if (MinecraftClient.IS_SYSTEM_MAC) {
+            return;
+        }
+
+        byte[] array;
+        if (byteBuffer.hasArray()) {
+            array = byteBuffer.array();
+        } else {
+            // can't use .array() as the buffer is not array-backed
+            array = new byte[height * width * components];
+            byteBuffer.get(array);
+        }
+
+        doCopyInv(array, width, height, components);
+    }
+
+    private static void doCopyInv(byte[] imageData, int width, int height, int components) {
+        new Thread(() -> {
+            DataBufferByte buf = new DataBufferByte(imageData, imageData.length);
+            ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_sRGB);
+            // Ignore the alpha channel, due to JDK-8204187
+            int[] nBits = {8, 8, 8};
+            int[] bOffs = {0, 1, 2}; // is this efficient, no transformation is being done?
+            ColorModel cm = new ComponentColorModel(cs, nBits, false, false,
+                    Transparency.TRANSLUCENT,
+                    DataBuffer.TYPE_BYTE);
+            BufferedImage bufImg = new BufferedImage(cm, Raster.createInterleavedRaster(buf,
+                    width, height,
+                    width * components, components,
+                    bOffs, null), false, null);
+
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(bufImg, "png", os);
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+                Bot.sendScreenshotInv(is);
             } catch (IOException | ExecutionException | InterruptedException e) {
                 throw new RuntimeException(e);
             }

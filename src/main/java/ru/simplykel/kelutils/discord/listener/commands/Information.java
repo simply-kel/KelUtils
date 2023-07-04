@@ -66,6 +66,7 @@ public class Information {
         }
         e.replyEmbeds(embed.build()).addActionRow(
                 Button.secondary("screenshot", Emoji.fromUnicode("📸")).withLabel(Localization.getLocalization("bot.button.screenshot", true)),
+//                Button.secondary("screenshot_inv", Emoji.fromUnicode("📸")).withLabel(Localization.getLocalization("bot.button.screenshot.inv", true)),
                 Button.secondary("upvolume", Emoji.fromUnicode("🔊")).withLabel(Localization.getLocalization("bot.button.volume.up", true)),
                 Button.secondary("downvolume", Emoji.fromUnicode("🔉")).withLabel(Localization.getLocalization("bot.button.volume.down", true)),
                 Button.secondary("exit", Emoji.fromUnicode("❌")).withLabel(Localization.getLocalization("bot.button.exit", true))

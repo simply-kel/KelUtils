@@ -18,12 +18,18 @@
       "ru.simplykel.kelutils.Main"
     ],
     "modmenu": [
-      "ru.simplykel.kelutils.config.gui.ModMenuIntegration"
+      "ru.simplykel.kelutils.ModMenuIntegration"
     ]
   },
   "mixins": [
     "KelUtils.mixins.json"
   ],
+  "breaks": {
+    "musicplayer": "*",
+    "gammautils": "*",
+    "bossstack": "*",
+    "portalsgui": "*"
+  },
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",

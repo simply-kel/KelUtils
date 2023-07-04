@@ -1,5 +1,6 @@
 package ru.simplykel.kelutils.config;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
@@ -214,6 +215,21 @@ public class Localization {
         }
         if(Main.simplyStatus){
             parsedText = ru.simplykel.simplystatus.config.Localization.getParsedText(parsedText);
+        }
+        return parsedText;
+    }
+    public static String getMusicParseText(AudioTrack track, String text){
+        String parsedText = text;
+        AudioTrackInfo trackInfo = track.getInfo();
+        parsedText = parsedText.replace("%music_author_format%", trackInfo.author.equals("Unknown artist") ? "" : Localization.getLocalization("music.format.author", false));
+        parsedText = parsedText.replace("%music_author%", trackInfo.author);
+        parsedText = parsedText.replace("%music_title%", trackInfo.author);
+        if (trackInfo.isStream) {
+            parsedText = parsedText.replace("%music_time_format%", Localization.getLocalization("music.live", false));
+        } else{
+            parsedText = parsedText.replace("%music_time_format%", Localization.getLocalization("music.time.format", false));
+            parsedText = parsedText.replace("%music_time%", getTimestamp(track.getPosition()));
+            parsedText = parsedText.replace("%music_time_max%", getTimestamp(track.getDuration()));
         }
         return parsedText;
     }

@@ -26,6 +26,7 @@ public class Bot {
     public static boolean DISCORD_CONNECTED = false;
     public static boolean lastChangeDiscordUse = false;
     public static boolean takeScreenshotBot = false;
+    public static boolean takeScreenshotInvBot = false;
     public static void start() throws InterruptedException {
         String token = DiscordConfig.DISCORD_TOKEN;
         jda = JDABuilder.createDefault(token,
@@ -50,6 +51,26 @@ public class Bot {
         EmbedBuilder embed = new EmbedBuilder()
                 .setColor(new Color(0x264653))
                 .setDescription(Localization.getLocalization("bot.screenshot", true))
+                .setImage("attachment://"+fileName);
+        User user = jda.getUserById(DiscordConfig.USER_ID);
+        assert user != null;
+        Main.LOG.info(jda.getUserById(DiscordConfig.USER_ID).getName());
+        user.openPrivateChannel().submit().get()
+                .sendMessageEmbeds(embed.build())
+                .addFiles(FileUpload.fromData(imageData, fileName))
+                .queue();
+        if(MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().world != null)
+            MinecraftClient.getInstance().player.sendMessage(Localization.getText("kelutils.bot.screenshot.message"), false);
+    }
+    public static void sendScreenshotInv(InputStream imageData) throws ExecutionException, InterruptedException {
+//        if(!DISCORD_CONNECTED) return;
+        String fileName = Localization.getLocalization("bot.screenshot.file", true)
+                .replace(":", ".")
+                .replace("/", "-")
+                +".png";
+        EmbedBuilder embed = new EmbedBuilder()
+                .setColor(new Color(0x264653))
+                .setDescription(Localization.getLocalization("bot.screenshot.inv", true))
                 .setImage("attachment://"+fileName);
         User user = jda.getUserById(DiscordConfig.USER_ID);
         assert user != null;

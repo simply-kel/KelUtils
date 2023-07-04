@@ -1,6 +1,8 @@
 package ru.simplykel.kelutils.mixin;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.ScreenshotRecorder;
@@ -26,6 +28,16 @@ public abstract class GameRendererMixin {
             NativeImage img = ScreenshotRecorder.takeScreenshot(mc.getFramebuffer());
             Main.handleScreenshotAWT(img);
         }
+//        if(Bot.takeScreenshotInvBot){
+//            Bot.takeScreenshotInvBot = false;
+//            if(mc.player != null && mc.world != null){
+//                Screen current = mc.currentScreen;
+//                mc.setScreen(new InventoryScreen(mc.player));
+//                NativeImage img = ScreenshotRecorder.takeScreenshot(mc.getFramebuffer());
+//                Main.handleScreenshotAWTInv(img);
+//                mc.send(() -> mc.setScreen(current));
+//            }
+//        }
 
     }
 }

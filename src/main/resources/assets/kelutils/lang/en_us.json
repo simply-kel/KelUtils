@@ -1,14 +1,24 @@
 {
   "kelutils.name": "KelUtils",
+  "kelutils.name.dev": "KelUtils: Developer mode",
+  "kelutils.name.playlist": "KelUtils: Playlist",
   "kelutils.key.openconfig": "Open configs",
   "kelutils.key.gamma.up": "Gamma up",
   "kelutils.key.gamma.down": "Gamma down",
   "kelutils.key.volume.up": "Volume up",
   "kelutils.key.volume.down": "Volume down",
   "kelutils.key.gamma.toggle": "Toggle Gamma",
+  "kelutils.key.swap": "Swap Item",
+
+  "kelutils.playlist": "Playlist",
+  "kelutils.playlist.author": "Author",
+  "kelutils.playlist.title": "Title",
+  "kelutils.playlist.urls": "URLs",
 
   "kelutils.music": "Music",
+  "kelutils.music.queue": "Queue:",
   "kelutils.music.add": "Your request was accepted",
+  "kelutils.music.add.playlist": "The «%playlist_name%» playlist has been added",
   "kelutils.music.add.blank": "Request blank",
   "kelutils.key.music.pause": "Music pause",
   "kelutils.key.volume.music.up": "Music Volume up",
@@ -31,7 +41,6 @@
   "kelutils.music.pause": "• ⏸ Pause",
   "kelutils.music.format.author": "«%music_author%»",
 
-  "kelutils.music.time": "%music_time_format%",
   "kelutils.music.time.format": "%music_time% / %music_time_max%",
   "kelutils.music.live": "Live",
 
@@ -42,6 +51,7 @@
   "kelutils.config.title.functions": "Functions",
   "kelutils.config.client.enable_hud_information": "Enable HUD Information",
   "kelutils.config.client.enable_bossbar_information": "Enable Boss Bar Information",
+  "kelutils.config.client.bossbar_type": "Boss Bar Type",
   "kelutils.config.client.discord_use": "Enable Discord Bot",
 
   "kelutils.config.title.gamma": "Gamma",
@@ -98,6 +108,8 @@
   "kelutils.config.localization.music.format": "Music format",
   "kelutils.config.localization.music.format.author": "Author format",
   "kelutils.config.localization.music.pause": "Pause",
+  "kelutils.config.localization.music.time.format": "Time format",
+  "kelutils.config.localization.music.live": "Live",
 
   "kelutils.config.localization.title.bossbar": "Boss Bar",
   "kelutils.config.localization.bossbar.music": "Music format",
@@ -142,6 +154,7 @@
   "kelutils.bot.permission": "You can't control a player >:(",
   "kelutils.bot.exit": "Goodbye, sir!",
   "kelutils.bot.screenshot": "A screenshot was taken from %date_format%, %time_format%",
+  "kelutils.bot.screenshot.inv": "A screenshot inventory was taken from %date_format%, %time_format%",
   "kelutils.bot.screenshot.message": "A screenshot was sent to private messages.",
   "kelutils.bot.screenshot.try": "I started trying to take a screenshot",
   "kelutils.bot.screenshot.file": "%date_format%_%time_format%",
@@ -150,6 +163,7 @@
   "kelutils.bot.chat.send": "A message was received / %address%",
 
   "kelutils.bot.button.screenshot": "Take screenshot",
+  "kelutils.bot.button.screenshot.inv": "Take Inventory Screenshot",
   "kelutils.bot.button.exit": "Exit",
   "kelutils.bot.button.volume.up": "Volume up",
   "kelutils.bot.button.volume.down": "Volume down",

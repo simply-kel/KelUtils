@@ -8,6 +8,7 @@
     "MinecraftClientAccess"
   ],
   "client": [
+    "ClientPlayerEntityMixin",
     "ChatHudMixin",
     "BossBarHudMixin",
     "ScreenshotMixinAWT",

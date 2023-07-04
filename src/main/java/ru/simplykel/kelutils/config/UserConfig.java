@@ -2,6 +2,7 @@ package ru.simplykel.kelutils.config;
 
 import net.minecraft.client.MinecraftClient;
 import org.json.JSONObject;
+import ru.simplykel.kelutils.Main;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +18,6 @@ public class UserConfig {
     public static int SELECT_SYSTEM_VOLUME = 1;
     public static boolean ICON_SNAPSHOT = false;
     public static boolean GAMMA_ACTIVATED = false;
-    public static String DISCORD_TOKEN = "";
     public static boolean DISCORD_USE = false;
     ///
     public static int CURRENT_MUSIC_VOLUME = 2;
@@ -26,6 +26,7 @@ public class UserConfig {
     public static String YANDEX_MUSIC_TOKEN = "";
     public static String YOUTUBE_EMAIL = "";
     public static String YOUTUBE_PASSWORD = "";
+    public static String BOSSBAR_TYPE = "";
 
     /**
      * Сохранение конфигурации
@@ -43,14 +44,14 @@ public class UserConfig {
                 .put("GAMMA_ACTIVATED", GAMMA_ACTIVATED)
                 .put("SELECT_SYSTEM_VOLUME", SELECT_SYSTEM_VOLUME)
                 .put("ICON_SNAPSHOT", ICON_SNAPSHOT)
-                .put("DISCORD_TOKEN", DISCORD_TOKEN)
                 .put("DISCORD_USE", DISCORD_USE)
                 .put("SELECT_MUSIC_VOLUME", SELECT_MUSIC_VOLUME)
                 .put("CURRENT_MUSIC_VOLUME", CURRENT_MUSIC_VOLUME)
                 .put("LAST_REQUEST_MUSIC", LAST_REQUEST_MUSIC)
                 .put("YANDEX_MUSIC_TOKEN", YANDEX_MUSIC_TOKEN)
                 .put("YOUTUBE_EMAIL", YOUTUBE_EMAIL)
-                .put("YOUTUBE_PASSWORD", YOUTUBE_PASSWORD);
+                .put("YOUTUBE_PASSWORD", YOUTUBE_PASSWORD)
+                .put("BOSSBAR_TYPE", BOSSBAR_TYPE);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -93,9 +94,6 @@ public class UserConfig {
             if(!jsonConfig.isNull("DISCORD_USE")) DISCORD_USE = jsonConfig.getBoolean("DISCORD_USE");
             else DISCORD_USE = true;
 
-            if(!jsonConfig.isNull("DISCORD_TOKEN")) DISCORD_TOKEN = jsonConfig.getString("DISCORD_TOKEN");
-            else DISCORD_TOKEN = "";
-
             if(!jsonConfig.isNull("ICON_SNAPSHOT")) ICON_SNAPSHOT = jsonConfig.getBoolean("ICON_SNAPSHOT");
             else ICON_SNAPSHOT = false;
 
@@ -115,6 +113,9 @@ public class UserConfig {
             else YOUTUBE_EMAIL = "";
             if(!jsonConfig.isNull("YOUTUBE_PASSWORD")) YOUTUBE_PASSWORD = jsonConfig.getString("YOUTUBE_PASSWORD");
             else YOUTUBE_PASSWORD = "";
+
+            if(!jsonConfig.isNull("BOSSBAR_TYPE")) BOSSBAR_TYPE = jsonConfig.getString("BOSSBAR_TYPE");
+            else BOSSBAR_TYPE = Main.bossBarTypes[0];
         } catch (Exception e){
             e.printStackTrace();
             save();

@@ -6,9 +6,17 @@
   "kelutils.key.volume.up": "Добавить громкость",
   "kelutils.key.volume.down": "Убавить громкость",
   "kelutils.key.gamma.toggle": "Переключить гамму",
+  "kelutils.key.swap": "Swap предмета",
+
+  "kelutils.playlist": "Плейлист",
+  "kelutils.playlist.author": "Автор",
+  "kelutils.playlist.title": "Название",
+  "kelutils.playlist.urls": "Ссылки",
 
   "kelutils.music": "Музыка",
+  "kelutils.music.queue": "Очередь:",
   "kelutils.music.add": "Ваш запрос был принят",
+  "kelutils.music.add.playlist": "Плейлист «%playlist_name%» был добавлен",
   "kelutils.music.add.blank": "Запрос пустой",
   "kelutils.key.music.pause": "Паузка музыки",
   "kelutils.key.volume.music.up": "Добавить громкость музыки",
@@ -31,7 +39,6 @@
   "kelutils.music.key.repeat": "Повтор включён",
   "kelutils.music.key.repeat.no": "Повтор отключён",
 
-  "kelutils.music.time": "%music_time_format%",
   "kelutils.music.time.format": "(%music_time% / %music_time_max%)",
   "kelutils.music.live": "(Эфир)",
 
@@ -42,6 +49,7 @@
   "kelutils.config.title.functions": "Функции",
   "kelutils.config.client.enable_hud_information": "Включить HUD Информацию",
   "kelutils.config.client.enable_bossbar_information": "Включить босс бар",
+  "kelutils.config.client.bossbar_type": "Тип босс бара",
   "kelutils.config.client.discord_use": "Включить дискорд бота",
 
   "kelutils.config.title.gamma": "Гамма",
@@ -96,6 +104,8 @@
   "kelutils.config.localization.music.format": "Формат музыки",
   "kelutils.config.localization.music.format.author": "Формат автора",
   "kelutils.config.localization.music.pause": "Пауза",
+  "kelutils.config.localization.music.time.format": "Время формат",
+  "kelutils.config.localization.music.live": "Эфир",
 
   "kelutils.config.localization.title.bossbar": "Босс бар",
   "kelutils.config.localization.bossbar.music": "Формат музыки",
@@ -140,6 +150,7 @@
   "kelutils.bot.permission": "Вы не можете управлять игроком >:(",
   "kelutils.bot.exit": "Всего хорошего, сэр!",
   "kelutils.bot.screenshot": "Был сделан скриншот от %date_format%, %time_format%",
+  "kelutils.bot.screenshot.inv": "Был сделан скриншот инвенторя от %date_format%, %time_format%",
   "kelutils.bot.screenshot.message": "Скриншот был отправлен в личные сообщения.",
   "kelutils.bot.screenshot.try": "Я начала попытку сделать скриншот",
   "kelutils.bot.screenshot.file": "%date_format%_%time_format%",
@@ -148,6 +159,7 @@
   "kelutils.bot.chat.send": "Было получено сообщение / %address%",
 
   "kelutils.bot.button.screenshot": "Сделать скриншот",
+  "kelutils.bot.button.screenshot.inv": "Сделать скриншот инвенторя",
   "kelutils.bot.button.exit": "Выход",
   "kelutils.bot.button.volume.up": "Громче",
   "kelutils.bot.button.volume.down": "Тише",

@@ -21,7 +21,9 @@ public class CommandListener extends ListenerAdapter {
         Bot.jda.updateCommands().addCommands().queue();
         Bot.jda.updateCommands().addCommands(
                 Commands.slash("screenshot", "Take screenshot").setGuildOnly(false),
+//                Commands.slash("screenshot_inv", "Take screenshot inventory").setGuildOnly(false),
                 Commands.slash("info", "Get information").setGuildOnly(false),
+//                Commands.slash("music", "Control Music Player").setGuildOnly(false),
                 Commands.slash("msg", "Send message/command").setGuildOnly(false)
                         .addOption(OptionType.STRING, "text", "Message/command", true),
                 Commands.slash("exit", "Exit game").setGuildOnly(false)
@@ -42,7 +44,9 @@ public class CommandListener extends ListenerAdapter {
 
             switch (e.getName()){
                 case "screenshot" -> new Screenshot(e);
+//                case "screenshot_inv" -> new ScreenshotInv(e);
                 case "info" -> new Information(e);
+                case "music" -> new MusicControl(e);
                 case "msg" -> new Message(e);
                 case "exit" -> new Exit(e);
             }
@@ -65,6 +69,7 @@ public class CommandListener extends ListenerAdapter {
 
             switch (e.getComponentId()){
                 case "screenshot" -> new Screenshot(e);
+//                case "screenshot_inv" -> new ScreenshotInv(e);
                 case "exit" -> new Exit(e);
                 case "upvolume" -> Volume.upVolume(e);
                 case "downvolume" -> Volume.downVolume(e);

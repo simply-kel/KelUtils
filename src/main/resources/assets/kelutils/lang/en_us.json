@@ -117,9 +117,9 @@
   "kelutils.config.localization.bossbar.music.pause": "Pause",
   "kelutils.config.localization.bossbar": "Information",
 
-  "kelutils.hud": "%name% %item%• %health_percent%❤ • %armor%⛊ • %fps% • %gamma%🔆 • %date%",
+  "kelutils.hud": "%name% %item%• %fps% • %gamma%🔆 • %date%",
   "kelutils.item": "%item%",
-  "kelutils.item.format": "• %item_name% %item_pcs% ",
+  "kelutils.item.format": "• %item_name% %item_pcs%",
   "kelutils.item.format.bot": "%item_name% %item_pcs% ",
   "kelutils.item.format.count": "%item_count% pcs.",
   "kelutils.address.hidden": "Coffee?",

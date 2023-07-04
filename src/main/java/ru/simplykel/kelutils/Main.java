@@ -149,13 +149,13 @@ public class Main implements ClientModInitializer {
                 "kelutils.name"
         ));
         KeyBinding resetQueueKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "kelutils.key.volume.music.reset",
+                "kelutils.key.music.reset",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
                 "kelutils.name"
         ));
         KeyBinding shuffleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "kelutils.key.volume.music.shuffle",
+                "kelutils.key.music.shuffle",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_Z, // The keycode of the key
                 "kelutils.name"

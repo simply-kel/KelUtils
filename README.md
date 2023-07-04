@@ -6,7 +6,7 @@
 * Воспроизведение музыки в игре
 * Гамма
 * Swap предмета<br>
-  ![image](https://github.com/simply-kel/KelUtils/assets/86980879/2ac1c5e7-b801-418a-a62e-83764f8d76f6)
+  ![image](https://github.com/simply-kel/KelUtils/assets/86980879/db84958e-d73b-4401-9bb2-9136cf9273e5)
 * Discord бот
     * Скриншоты в личные сообщения
     * При смерти делать скриншоты и присылать в лс с координатами

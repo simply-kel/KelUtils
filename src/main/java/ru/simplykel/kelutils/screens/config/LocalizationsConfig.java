@@ -69,7 +69,7 @@ public class LocalizationsConfig {
         category.addEntry(entryBuilder.startStrField(
                         Localization.getText("kelutils.config.localization.item.format.count"),
                         Localization.getLocalization("item.format.count", false))
-                .setDefaultValue(Localization.getLcnDefault("hud"))
+                .setDefaultValue(Localization.getLcnDefault("item.format.count"))
                 .setSaveConsumer(newValue -> Localization.setLocalization("item.format.count", newValue))
                 .build());
         ///

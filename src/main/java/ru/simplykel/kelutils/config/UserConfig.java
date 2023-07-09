@@ -27,6 +27,7 @@ public class UserConfig {
     public static String YOUTUBE_EMAIL = "";
     public static String YOUTUBE_PASSWORD = "";
     public static String BOSSBAR_TYPE = "";
+    public static String ALL_ITEMS_COUNT = "";
 
     /**
      * Сохранение конфигурации
@@ -51,7 +52,8 @@ public class UserConfig {
                 .put("YANDEX_MUSIC_TOKEN", YANDEX_MUSIC_TOKEN)
                 .put("YOUTUBE_EMAIL", YOUTUBE_EMAIL)
                 .put("YOUTUBE_PASSWORD", YOUTUBE_PASSWORD)
-                .put("BOSSBAR_TYPE", BOSSBAR_TYPE);
+                .put("BOSSBAR_TYPE", BOSSBAR_TYPE)
+                .put("ALL_ITEMS_COUNT", ALL_ITEMS_COUNT);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -116,6 +118,9 @@ public class UserConfig {
 
             if(!jsonConfig.isNull("BOSSBAR_TYPE")) BOSSBAR_TYPE = jsonConfig.getString("BOSSBAR_TYPE");
             else BOSSBAR_TYPE = Main.bossBarTypes[0];
+
+            if(!jsonConfig.isNull("ALL_ITEMS_COUNT")) ALL_ITEMS_COUNT = jsonConfig.getString("ALL_ITEMS_COUNT");
+            else ALL_ITEMS_COUNT = "minecraft:stone";
         } catch (Exception e){
             e.printStackTrace();
             save();

@@ -402,17 +402,16 @@ public class Main implements ClientModInitializer {
                             }
                         }
                         case "real_time" -> {
-                            DateFormat dateFormat = new SimpleDateFormat("HH");
-                            long currentTime = Long.parseLong(dateFormat.format(System.currentTimeMillis()));
-                            percent = (float) currentTime / 24;
+                            long currentTime = System.currentTimeMillis() % 86400000;
+                            percent = (float) currentTime / 86400000;
                             if (percent > 1f) percent = 1f;
-                            if (currentTime < 11 && currentTime > 0) {
+                            if (currentTime < 39600000 && currentTime > 0) {
                                 color = BossBar.Color.YELLOW;
-                            } else if (currentTime < 17 && currentTime > 11) {
+                            } else if (currentTime < 61200000 && currentTime > 39600000) {
                                 color = BossBar.Color.GREEN;
-                            } else if (currentTime < 22 && currentTime > 17) {
+                            } else if (currentTime < 79200000 && currentTime > 61200000) {
                                 color = BossBar.Color.YELLOW;
-                            } else if (currentTime > 22) {
+                            } else if (currentTime > 79200000) {
                                 color = BossBar.Color.RED;
                             } else {
                                 color = BossBar.Color.WHITE;

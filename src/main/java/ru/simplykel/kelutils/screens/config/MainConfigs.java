@@ -32,6 +32,11 @@ public class MainConfigs {
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.DISCORD_USE = newValue)
                 .build());
+        //
+        category.addEntry(entryBuilder.startStrField(Localization.getText("kelutils.config.client.all_items_count"), UserConfig.ALL_ITEMS_COUNT)
+                .setDefaultValue("minecraft:stone")
+                .setSaveConsumer(newValue -> UserConfig.ALL_ITEMS_COUNT = newValue)
+                .build());
         ///
         category.addEntry(entryBuilder.startTextDescription(Localization.getText("kelutils.config.title.gamma")).build());
         //

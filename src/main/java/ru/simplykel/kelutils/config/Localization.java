@@ -4,8 +4,10 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.json.JSONObject;
 import ru.simplykel.kelutils.Main;
 import ru.simplykel.kelutils.info.Audio;
@@ -151,6 +153,8 @@ public class Localization {
             parsedText = parsedText.replace("%item%", Localization.getLocalization("item.format", false));
             parsedText = parsedText.replace("%item_bot%", Localization.getLocalization("item.format.bot", false));
             parsedText = parsedText.replace("%item_name%", Player.getItemName()+"");
+            parsedText = parsedText.replace("%all_items_count%", String.valueOf(getCurrentItemsCount(true)));
+            parsedText = parsedText.replace("%use_items_count%", String.valueOf(getCurrentItemsCount(false)));
             if(Player.getItemCount() >= 2) {
                 parsedText = parsedText.replace("%item_pcs%", Localization.getLocalization("item.format.count", false));
                 parsedText = parsedText.replace("%item_count%", Player.getItemCount() + "");
@@ -231,6 +235,7 @@ public class Localization {
             parsedText = parsedText.replace("%music_time%", getTimestamp(track.getPosition()));
             parsedText = parsedText.replace("%music_time_max%", getTimestamp(track.getDuration()));
         }
+
         return parsedText;
     }
     public static String getTimestamp(long milliseconds)
@@ -243,5 +248,16 @@ public class Localization {
             return String.format("%02d:%02d:%02d", hours, minutes, seconds);
         else
             return String.format("%02d:%02d", minutes, seconds);
+    }
+    public static int getCurrentItemsCount(boolean isSelected){
+        int count = 0;
+        MinecraftClient client = MinecraftClient.getInstance();
+        String itemID = isSelected ? UserConfig.ALL_ITEMS_COUNT : client.player.getInventory().getStack(client.player.getInventory().selectedSlot).getRegistryEntry().getKey().get().getValue().toString();
+        int max = client.player.getInventory().size();
+        for(int i = 0; i<max;i++){
+            ItemStack item = client.player.getInventory().getStack(i);
+            if(item.getRegistryEntry().matchesId(Identifier.tryParse(itemID))) count += item.getCount();
+        }
+        return count;
     }
 }

@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ru.simplykel.kelutils.client.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "BossBarHudMixin",
+    "ChatHudMixin",
+    "ClientPlayerEntityMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "DebugHudMixin",
+    "GameRendererMixin",
+    "InGameHudMixin",
+    "MinecraftClientAccess",
+    "MixinCreativeInventoryScreen",
+    "MixinSimpleOption",
+    "NativeImagePointerAccessor",
+    "ScreenshotMixinAWT",
+    "SpectatorHudMixin",
+    "WindowMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

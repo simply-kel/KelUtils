@@ -12,17 +12,20 @@
   },
   "license": "MIT",
   "icon": "assets/kelutils/icon.png",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "client": [
-      "ru.simplykel.kelutils.Main"
+      "ru.simplykel.kelutils.client.Main"
+    ],
+    "server": [
+      "ru.simplykel.kelutils.server.Main"
     ],
     "modmenu": [
-      "ru.simplykel.kelutils.ModMenuIntegration"
+      "ru.simplykel.kelutils.client.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "KelUtils.mixins.json"
+    "KelUtils.mixins.client.json"
   ],
   "breaks": {
     "musicplayer": "*",
